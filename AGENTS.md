@@ -1,3 +1,5 @@
+This is a local development clone of the primary project at /home/b/b382284/Projects/cmip6_equiv_depth_distributions on DKRZ Levante; edit code locally and run analysis and validation requiring archive data on Levante via SSH
+
 # Working conventions for Codex
 
 This is a scientific analysis project used on personal computers and HPC systems. Keep the same analysis code usable in each environment, even when the available datasets and storage paths differ.
