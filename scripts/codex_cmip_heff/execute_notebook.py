@@ -10,7 +10,7 @@ from run import OUTPUT
 
 
 source = PROJECT_ROOT / "notebooks/codex_heff_comparison_cmip6.ipynb"
-destination = OUTPUT / "codex_heff_comparison_cmip6.executed.ipynb"
+destination = OUTPUT / "codex_heff_comparison_cmip6.linear_1to100.executed.ipynb"
 if destination.exists():
     raise FileExistsError(f"Preserving existing executed notebook: {destination}")
 notebook = json.loads(source.read_text())
@@ -67,7 +67,7 @@ finally:
 
 images = sum("image/png" in output.get("data", {})
              for cell in notebook["cells"] for output in cell.get("outputs", []))
-if images != 15:
-    raise RuntimeError(f"Expected 15 standalone figures, got {images}")
+if images != 25:
+    raise RuntimeError(f"Expected 25 standalone figures, got {images}")
 destination.write_text(json.dumps(notebook, indent=1, ensure_ascii=False) + "\n")
 print(f"Executed {len(notebook['cells'])} cells; {images} figures in {destination}", flush=True)

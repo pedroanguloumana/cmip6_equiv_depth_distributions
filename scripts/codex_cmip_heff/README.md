@@ -51,7 +51,9 @@ binning and identity columns, using the completed NOAA diagnostic and catalogs.
 
 `notebooks/codex_heff_comparison_cmip6.ipynb` reads these six audited tables,
 shows individual-model 12–50 m metrics, and plots NOAA against Historical and
-AMIP model medians and between-simulation interquartile ranges. To render its
+AMIP model medians and between-simulation interquartile ranges. It also shows
+1 m event-count bins from 1 to 100 m for each wave, with both standard and
+relaxed fit-quality selections. To render its
 outputs on Levante after the audit, run
 `bash scripts/codex_cmip_heff/execute_notebook.sh`; this writes the executed
 notebook under the diagnostic data directory for review and transfer. It does
