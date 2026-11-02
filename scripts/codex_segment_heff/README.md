@@ -115,6 +115,8 @@ The summary worker requires all 60 records, checks identity/recipe/geometry and
 power closure, then writes two compressed CSVs and `audit.json`. The companion
 `notebooks/codex_segment_heff.ipynb` uses those summaries and NOAA's NetCDF.
 Figures are displayed in the notebook, with no separate figure files saved.
+The Historical/AMIP two-panel figure overlays all five wave families, averaging
+each model's normalized positive-excess distribution with equal model weights.
 `finalize.sh` runs the audit and notebook in a small Slurm job; submit it with
 `--dependency=afterok:<array-job-id>` after the full array. The executed notebook
 is saved alongside the compact data products and can be copied back for review.

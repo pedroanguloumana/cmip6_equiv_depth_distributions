@@ -67,7 +67,7 @@ finally:
 
 images = sum("image/png" in output.get("data", {})
              for cell in notebook["cells"] for output in cell.get("outputs", []))
-if images != 17:
-    raise RuntimeError(f"Expected 17 standalone figures, got {images}")
+if images != 18:
+    raise RuntimeError(f"Expected 18 figures, got {images}")
 destination.write_text(json.dumps(notebook, indent=1, ensure_ascii=False) + "\n")
 print(f"Executed {len(notebook['cells'])} cells; {images} figures in {destination}", flush=True)

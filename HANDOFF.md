@@ -2,6 +2,16 @@
 
 ## Individual WK-segment depth bands — 2026-11-02
 
+The user additionally requested a two-panel Historical/AMIP figure comparing
+all wave families. It now appears near the top of
+`notebooks/codex_segment_heff.ipynb`: shared axes, consistent wave colors,
+5 m bins over 10--80 m, equally weighted means of individually normalized
+positive-segment-excess distributions (34 Historical and 25 AMIP models).
+The notebook was executed locally from the compact audited products in a fresh
+kernel: 16 cells, 18 figures, zero errors; the two-panel figure was visually
+checked. The previous executed product is preserved, and the additional local
+execution is `data/wave_significance/codex_segment_heff/codex_segment_heff.wave_panels.executed.ipynb`.
+
 The user requested an additional spectral approach over 1990--2010, retaining
 individual 96-day segments and integrating excess signal near dispersion curves.
 They narrowed the scientific focus to 10--80 m and cross-family comparisons,
