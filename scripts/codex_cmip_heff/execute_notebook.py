@@ -5,12 +5,12 @@ import json
 
 from jupyter_client import KernelManager
 
-from src.paths import PROJECT_ROOT
-from run import OUTPUT
+from src.paths import DATA_DIR, PROJECT_ROOT
 
 
 source = PROJECT_ROOT / "notebooks/codex_heff_comparison_cmip6.ipynb"
-destination = OUTPUT / "codex_heff_comparison_cmip6.linear_1to100.executed.ipynb"
+OUTPUT = DATA_DIR / "wave_significance/codex_cmip_heff_comparison"
+destination = OUTPUT / "codex_heff_comparison_cmip6.individual_models.executed.ipynb"
 if destination.exists():
     raise FileExistsError(f"Preserving existing executed notebook: {destination}")
 notebook = json.loads(source.read_text())
@@ -67,7 +67,7 @@ finally:
 
 images = sum("image/png" in output.get("data", {})
              for cell in notebook["cells"] for output in cell.get("outputs", []))
-if images != 25:
-    raise RuntimeError(f"Expected 25 standalone figures, got {images}")
+if images != 35:
+    raise RuntimeError(f"Expected 35 standalone figures, got {images}")
 destination.write_text(json.dumps(notebook, indent=1, ensure_ascii=False) + "\n")
 print(f"Executed {len(notebook['cells'])} cells; {images} figures in {destination}", flush=True)

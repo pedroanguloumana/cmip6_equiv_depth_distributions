@@ -53,7 +53,9 @@ binning and identity columns, using the completed NOAA diagnostic and catalogs.
 shows individual-model 12–50 m metrics, and plots NOAA against Historical and
 AMIP model medians and between-simulation interquartile ranges. It also shows
 1 m event-count bins from 1 to 100 m for each wave, with both standard and
-relaxed fit-quality selections. To render its
+relaxed fit-quality selections. The individual-model panels plot all 34
+Historical and 25 AMIP simulations as faint curves, their equally weighted
+ensemble means as bold curves, and NOAA as black. To render its
 outputs on Levante after the audit, run
 `bash scripts/codex_cmip_heff/execute_notebook.sh`; this writes the executed
 notebook under the diagnostic data directory for review and transfer. It does
