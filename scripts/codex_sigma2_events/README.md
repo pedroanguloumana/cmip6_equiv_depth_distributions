@@ -8,8 +8,12 @@ fit, branch-specific depth inversion and existing fit-quality screens.
 
 For filtered OLR `q`, active pixels satisfy
 `abs(Hilbert_longitude(q)) > 2 * std(q_reference)`. The reference excludes 150
-days at each record end. Connected active pixels define the event component;
-all its pixels enter the sinusoid fit with equal weights. A higher threshold
+days at each record end. Sigma is dataset- and wave-specific, so the threshold
+does not impose a common absolute OLR amplitude across sources.
+Eight-neighbor connected active pixels, with periodic longitude, define the
+event component. The existing minimum duration of 2 days, minimum span of 10
+degrees and exclusion of components touching the record endpoints are unchanged.
+All component pixels enter the sinusoid fit with equal weights. A higher threshold
 changes boundaries, can split components, and shortens fit support, so these
 are new catalogs, not a peak-amplitude subset of the 1.5-sigma fits.
 
@@ -38,7 +42,8 @@ as the completed 1.5-sigma calculation, and submits:
 - Four CMIP6 shards (85/85 Historical and 60/65 AMIP tasks), up to 12 worker
   subprocesses per shard, using the existing `run_cmip6_event_batch.py`.
   Allocations are 96 CPUs / 170 GiB / 4 h each; previous observed/model workers
-  peaked at 10.26 GiB. Five running Slurm jobs cover all 49 concurrent workers.
+  peaked at 10.26 GiB. The plan permits up to 49 concurrent workers including
+  NOAA; Slurm initially admitted two model shards plus NOAA during this run.
 - An audit depending on successful completion of NOAA and all four shards.
 
 Submission IDs and shard task lists are recorded in
@@ -72,6 +77,20 @@ function to select the precise threshold-specific catalog; no arbitrary
 newest-file choice is needed. Event IDs are local to a particular detection
 threshold and must not be joined across the two populations.
 
+For example, inspect the exact NOAA Kelvin catalog on Levante with:
+
+```python
+import pandas as pd
+from src.paths import DATA_DIR
+from src.wave_events import load_event_catalog
+
+index = pd.read_csv(DATA_DIR / "event_threshold_comparison/catalog_summary.csv")
+row = index.loc[(index.model == "NOAA_OLR") & (index.wave == "Kelvin")
+                & (index.detection_sigma == 2)].squeeze()
+events = load_event_catalog(row.model, row.experiment, row.wave, run_id=row.run_id)
+events[["event_id", "h_eff_m", "weighted_r2", "keep_for_histogram"]]
+```
+
 Higher R2 alone does not establish a better physical depth estimate: shrinking
 support can make a sinusoid easier to fit while reducing sampled cycles. Compare
 R2, support/cycle counts, search boundaries and depth distributions together.
@@ -79,3 +98,9 @@ Counts and distributions here are descriptive, with no background significance
 interpretation.
 `notebooks/codex_event_threshold_comparison.ipynb` reads the compact products
 to compare counts, fit diagnostics and depth distributions at both thresholds.
+
+The 2026-11-02 run completed all 300 new catalogs and passed the 600-catalog
+audit (job `28660989`). The notebook retains 10 executed figures, comparing
+both thresholds with NOAA and equally weighted Historical/AMIP model means,
+separately for all valid-depth fits and the existing quality-screened subset.
+The full catalogs remain on Levante; the compact audit tables are also local.

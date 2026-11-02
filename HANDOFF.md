@@ -1,4 +1,4 @@
-# Codex handoff — 2026-10-30
+# Codex handoff — 2026-11-02
 
 ## Two-sigma event envelopes and event-implied depths — 2026-11-02
 
@@ -28,17 +28,49 @@ full 295-task cohort is pinned to
 `data/cmip6_event_jobs/tasklists/simulations_waves_20261030_205901_2794174.tsv`.
 Submission/shard records and logs are in `data/cmip6_event_jobs/sigma2_component/`.
 The launcher refuses duplicate submissions once its `submission.json` exists.
+All five NOAA tasks and four CMIP shards completed with exit 0. The final AMIP
+shard's pending time limit was reduced from 4 h to 1 h; it completed in 15m12s,
+without changing worker concurrency or any scientific settings. Audit `28660989`
+completed in 14 seconds, exit 0. Do not resubmit this completed calculation.
 
 New `.ds2.component.` CSV/JSON pairs go to the standard NOAA `data/` root and
 `data/cmip6_event_catalogs/`. The audit compares all 600 complete catalogs
 (both thresholds, five waves, 60 records), checking recipes, identity, flags,
 counts, depth units and histogram closure. It writes compact summary and
 5 m depth histograms to `data/event_threshold_comparison/`; no background
-calibration or significance selection is used. The prepared comparison notebook
-is `notebooks/codex_event_threshold_comparison.ipynb` and requires those outputs.
-Complete the full audit and notebook, assess R2 together with support/cycle
-counts and retained fractions, and synchronize final source/results. A higher
-component-fit R2 by itself does not establish a more accurate physical depth.
+calibration or significance selection is used. All 600 catalogs passed the audit,
+including exact source/wave recipe equality except the two threshold fields.
+The compact CSVs and audit were copied locally. The comparison notebook,
+`notebooks/codex_event_threshold_comparison.ipynb`, was executed locally from a
+fresh kernel: 11 cells, 10 embedded single-panel figures, no errors. Visual checks
+covered the Kelvin/ER/MRG valid-depth curves and Kelvin/MRG screened curves.
+The executed artifact is also preserved under `data/event_threshold_comparison/`.
+
+Across the fixed cohort, candidates decrease 808,059 -> 674,102 (16.6%), while
+the existing quality-screened subset decreases 295,033 -> 182,484 (38.1%).
+Median component-fit R2 rises and median sampled temporal cycles fall in all
+300 paired source/wave comparisons; the screened fraction falls in 299/300.
+The valid-depth interquartile range narrows in 281/300. NOAA's valid-depth
+medians shift by less than 0.6 m for every wave. At 2 sigma, median depths in
+metres are:
+
+| Wave | NOAA | Historical model median | AMIP model median |
+| --- | ---: | ---: | ---: |
+| Kelvin | 14.8 | 11.6 | 12.2 |
+| n1ERW | 20.0 | 17.7 | 17.4 |
+| MRG | 54.0 | 35.1 | 33.8 |
+| n0EIG | 8.8 | 6.7 | 6.5 |
+| n1WIG | 7.9 | 6.7 | 6.7 |
+
+Model entries are medians of individual source event medians, not pooled-event
+medians. Paired model depth-median changes are generally below 1 m except MRG
+(median change +3.5 m Historical / +2.9 m AMIP). NOAA MRG remains sensitive to
+quality selection: 54.0 m for all valid fits versus 19.0 m screened, with 23.3%
+of valid depths above the 200 m plot limit. Histogram denominators retain tails.
+Sigma is dataset- and wave-specific; a common relative threshold does not impose
+equal absolute amplitudes. Shorter support, resting-background inversion and
+assigned branches limit interpretation. Higher R2 and narrower histograms do
+not by themselves establish more accurate physical depths.
 
 ## Individual WK-segment depth bands — 2026-11-02
 
