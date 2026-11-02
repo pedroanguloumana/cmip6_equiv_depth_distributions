@@ -8,7 +8,7 @@ import unittest
 
 import numpy as np
 import xarray as xr
-from xr_ccew.matsuno import kelvin_frequency
+from xr_ccew.matsuno import kelvin_frequency, profile_curve_frequency
 
 from scripts.codex_segment_heff.run import (
     BOX_PROFILES, DEPTH_EDGES_M, depth_band_weights, integrate_depth_bands,
@@ -88,6 +88,28 @@ class SegmentDepthTests(unittest.TestCase):
         self.assertGreater(float(fine.positive_excess.sum()), 0)
         for name in ("observed_power", "signed_excess", "positive_excess", "positive_ratio_excess"):
             np.testing.assert_allclose(fine[name].sum("depth"), coarse[name].sum("depth"), atol=1e-12)
+
+    def test_identical_depth_carriers_have_different_resolved_widths(self):
+        # A shared true depth must not be assumed to produce identical output
+        # PDFs: the same frequency window maps to a wider ER depth response.
+        widths = {}
+        for wave, k in (("Kelvin", 5), ("n1ERW", -5)):
+            field = self.field(nt=731)
+            profile = BOX_PROFILES[wave]
+            frequency = float(profile_curve_frequency(
+                profile.curve_name, k, 25,
+                meridional_mode_number=profile.meridional_mode_number))
+            carrier = 10 * np.cos(
+                k * np.deg2rad(field.lon.values)[None, :]
+                - 2 * np.pi * frequency * np.arange(731)[:, None])
+            field.values[:] = carrier[:, None, :]
+            result = integrate_depth_bands(segment_spectra(field)).sel(wave=wave)
+            power = result.mean_spectrum_positive_excess.values
+            cumulative = (power / power.sum()).cumsum()
+            quartiles = result.depth.values[np.searchsorted(cumulative, [.25, .5, .75])]
+            self.assertLess(abs(quartiles[1] - 25), 10)
+            widths[wave] = quartiles[2] - quartiles[0]
+        self.assertGreater(widths["n1ERW"], widths["Kelvin"])
 
 
 if __name__ == "__main__":

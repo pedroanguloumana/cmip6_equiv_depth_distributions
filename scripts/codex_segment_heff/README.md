@@ -66,6 +66,14 @@ saved one-frequency-bin depth scales. Those scales are not confidence intervals.
 The rectangular boxes also truncate the accessible K range differently by depth;
 effective cell counts are saved so that this geometry is visible.
 
+The synthetic check in `test_analysis.py` gives pure Kelvin and n=1 ER carriers
+the same true depth (25 m) and |K|=5. Their resolved depth distributions still
+have different peaks/widths: in the checked 96-day recipe the maximum-mass bins
+are centered at 22.5 m (Kelvin) and 27.5 m (ER). Their binned interquartile
+widths are 5 and 10 m. This is a resolution control, not a calibrated error bar
+for noisy observations; fine cross-family width/peak comparisons need matched
+response or longer-window sensitivity tests.
+
 Positive clipping has a positive noise expectation even when P has mean B.
 Inspect the signed excess, rectified full-record mean and background-relative
 diagnostics before interpreting a positive-excess shape as a wave preference.
