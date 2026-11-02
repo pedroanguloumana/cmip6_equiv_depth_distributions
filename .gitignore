@@ -9,3 +9,8 @@ __pycache__/
 /archived/*
 !/archived/README.md
 !/archived/move_manifests/
+
+# Machine-local caches and macOS copy metadata.
+.cache/
+._*
+.DS_Store
