@@ -42,12 +42,32 @@ All 31 existing project tests and four new scientific checks passed locally;
 the four new checks also passed in Levante's project environment. NOAA and
 ACCESS-CM2 historical pilots `28655973_0/1` completed in 82/91 seconds with
 about 2.3/3.1 GB maximum RSS, matching integration geometry and passing signed
-power/variance checks. The remaining 58 records run in array `28656027`;
-Slurm permits five concurrent user jobs. Summary/notebook job `28656087`
-depends on successful completion. Products are under
-`data/wave_significance/codex_segment_heff/`. Finish the 60-record audit,
-inspect the executed notebook, copy compact products and the executed notebook
-back, and synchronize final source changes before reporting the full comparison.
+power/variance checks. Full array `28656027` completed all remaining 58 records;
+Slurm permitted five concurrent user jobs. Job `28656087` passed the 60-record
+audit (34 Historical, 25 AMIP, NOAA) and saved 4,200 depth rows and 63,210
+wave/segment rows, then failed only because the new render wrapper imported
+`nbformat`, absent from this environment. The wrapper now uses the project's
+verified existing `jupyter_client`/JSON approach. Render-only job `28657184`
+completed in 12 seconds: 14 cells, 17 standalone embedded figures, no cell
+errors. No scientific calculation or summary was rerun for that repair.
+
+Products are under `data/wave_significance/codex_segment_heff/`: 60 NetCDFs,
+`depth_summary.csv.gz`, `segment_summary.csv.gz`, `audit.json` and the executed
+notebook. The two CSVs, audit, NOAA NetCDF and executed notebook were copied
+locally. All 300 normalized wave distributions sum to one; the saved 14-band
+segment sums close within 3e-14 W2 m-4, and the audit fingerprint matches the
+current analysis source. Five workflow tests, including the equal-25-m
+Kelvin/ER response control, now pass on both machines (36 local tests total).
+The delivered notebook retains the verified outputs and adds descriptive findings.
+
+NOAA's positive-segment-excess shares in 10--30 m are Kelvin 56.7% and ER 52.6%;
+model-median shares are 62.3%/53.0% in Historical and 59.7%/54.4% in AMIP.
+Integrated signed Kelvin excess [W2 m-4] is NOAA 12.249 versus Historical/AMIP
+medians 5.446/3.536; ER is 10.069 versus 12.595/13.462. Thus broadly similar
+normalized shapes can conceal strength differences. These are apparent-depth,
+one-record, one-member, conditional spectral comparisons, not significance or
+physical-equivalence results. Visual checks covered the Kelvin/ER shapes,
+broad-band comparison, depth-resolution plot and NOAA segment heatmap.
 
 ## NOAA–CMIP6 fitted-depth and power comparison — 2026-11-02
 
