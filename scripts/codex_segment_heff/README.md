@@ -117,6 +117,8 @@ power closure, then writes two compressed CSVs and `audit.json`. The companion
 Figures are displayed in the notebook, with no separate figure files saved.
 The Historical/AMIP two-panel figure overlays all five wave families, averaging
 each model's normalized positive-excess distribution with equal model weights.
+Dashed curves in matching wave colors show the normalized NOAA distribution
+in both panels; solid curves show the model means.
 `finalize.sh` runs the audit and notebook in a small Slurm job; submit it with
 `--dependency=afterok:<array-job-id>` after the full array. The executed notebook
 is saved alongside the compact data products and can be copied back for review.
