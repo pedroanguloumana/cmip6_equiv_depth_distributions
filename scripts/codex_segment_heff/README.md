@@ -95,6 +95,7 @@ bash scripts/codex_segment_heff/submit.sh pilot
 # Inspect both pilot outputs and their logs, then:
 bash scripts/codex_segment_heff/submit.sh full
 python scripts/codex_segment_heff/summarize.py
+python scripts/codex_segment_heff/execute_notebook.py
 ```
 
 `run.py --task-index 0` selects NOAA; 1--59 follow the saved calibration cohort
@@ -106,3 +107,6 @@ The summary worker requires all 60 records, checks identity/recipe/geometry and
 power closure, then writes two compressed CSVs and `audit.json`. The companion
 `notebooks/codex_segment_heff.ipynb` uses those summaries and NOAA's NetCDF.
 Figures are displayed in the notebook, with no separate figure files saved.
+`finalize.sh` runs the audit and notebook in a small Slurm job; submit it with
+`--dependency=afterok:<array-job-id>` after the full array. The executed notebook
+is saved alongside the compact data products and can be copied back for review.
