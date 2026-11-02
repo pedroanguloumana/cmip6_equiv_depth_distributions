@@ -1,4 +1,4 @@
-# Codex handoff — 2026-11-02
+# Codex handoff — 2026-11-03
 
 ## Two-sigma event envelopes and event-implied depths — 2026-11-02
 
@@ -42,9 +42,31 @@ calibration or significance selection is used. All 600 catalogs passed the audit
 including exact source/wave recipe equality except the two threshold fields.
 The compact CSVs and audit were copied locally. The comparison notebook,
 `notebooks/codex_event_threshold_comparison.ipynb`, was executed locally from a
-fresh kernel: 11 cells, 10 embedded single-panel figures, no errors. Visual checks
-covered the Kelvin/ER/MRG valid-depth curves and Kelvin/MRG screened curves.
-The executed artifact is also preserved under `data/event_threshold_comparison/`.
+fresh kernel: now 16 cells, 13 embedded single-panel figures, no errors. Visual
+checks covered the Kelvin/ER/MRG valid-depth curves, Kelvin/MRG screened curves
+and all three added Hovmoller examples. Executed artifacts are preserved under
+`data/event_threshold_comparison/`; the latest is
+`codex_event_threshold_comparison.hovmoller.reviewed.executed.ipynb`.
+
+The user requested cells illustrating the new envelope threshold with an example
+Hovmoller. `scripts/codex_sigma2_events/prepare_hovmoller.py` replays the complete
+NOAA Kelvin record and checks all event IDs, peaks, longitudes and amplitudes
+against the full 2-sigma catalog. It selects the existing quality-screened event
+nearest 1 July 2000, without selecting on depth: event 1650, peak 26 June 2000
+at 168.5 E, h_eff=10.662 m, carrier c=10.225 m/s, R2=0.909461. Preparation job
+`28664031` completed in 61 seconds (exit 0), also verifying the full selected
+support, reconstructed R2 and branch depth. The small cache
+`data/event_threshold_comparison/noaa_kelvin_sigma2_example.nc` (40 days x 181
+longitudes) was copied locally. Source recipe and preparation hash are retained.
+The job's exact source snapshot is in
+`data/cmip6_event_jobs/sigma2_component/hovmoller.prepare.py`.
+
+The five new notebook cells show signed OLR with 1.5/2-sigma envelope cutoffs,
+an envelope close-up and the fitted negative-OLR crests inside the chosen active
+component. The envelope includes both OLR signs. Carrier-phase propagation,
+rather than the envelope boundary's motion, supplies depth. No catalogs were
+refitted or background calculations performed. Existing cached products remain
+preserved; the notebook needs only compact local inputs for fresh execution.
 
 Across the fixed cohort, candidates decrease 808,059 -> 674,102 (16.6%), while
 the existing quality-screened subset decreases 295,033 -> 182,484 (38.1%).

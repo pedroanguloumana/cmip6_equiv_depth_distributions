@@ -100,7 +100,32 @@ interpretation.
 to compare counts, fit diagnostics and depth distributions at both thresholds.
 
 The 2026-11-02 run completed all 300 new catalogs and passed the 600-catalog
-audit (job `28660989`). The notebook retains 10 executed figures, comparing
+audit (job `28660989`). The notebook retains 10 distribution figures, comparing
 both thresholds with NOAA and equally weighted Historical/AMIP model means,
 separately for all valid-depth fits and the existing quality-screened subset.
 The full catalogs remain on Levante; the compact audit tables are also local.
+
+## Example Hovmoller
+
+On Levante, prepare the small plotting input with:
+
+```bash
+python scripts/codex_sigma2_events/prepare_hovmoller.py
+```
+
+This replays the full 1990--2010 NOAA Kelvin filter and 2-sigma detector, checks
+all event IDs, peak times, longitudes and amplitudes against the saved catalog,
+and caches `data/event_threshold_comparison/noaa_kelvin_sigma2_example.nc`.
+It uses the existing quality-screened event nearest 1 July 2000, with event ID
+breaking ties and no selection on depth. The chosen event is 1650, peaking
+26 June 2000 at 168.5 degrees east, with h_eff=10.662 m and R2=0.909461.
+The cache preserves all component pixels, verifies the saved fit and depth,
+and records the source recipe. Existing caches are preserved rather than replaced.
+
+The notebook adds three single-panel Hovmoller figures: signed OLR with 1.5/2
+sigma envelope cutoffs, an envelope close-up with the active component, and
+signed OLR with fitted negative-OLR crests inside that component. The cached
+40-day, 181-longitude slice can be copied locally for fresh-kernel execution;
+the archive record is needed only for preparation. No catalog refitting or
+background calculation is performed. Carrier-phase propagation, rather than
+the envelope boundary's motion, supplies the implied depth.
