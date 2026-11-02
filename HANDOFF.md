@@ -1,5 +1,54 @@
 # Codex handoff — 2026-10-30
 
+## Individual WK-segment depth bands — 2026-11-02
+
+The user requested an additional spectral approach over 1990--2010, retaining
+individual 96-day segments and integrating excess signal near dispersion curves.
+They narrowed the scientific focus to 10--80 m and cross-family comparisons,
+especially whether Kelvin and ER have the same apparent-depth distribution.
+The implementation uses 5 m output bands and also compares broad 10--30,
+30--50 and 50--80 m groups. This is a power-weighted spectral diagnostic,
+not an event-count distribution or a statistical equivalence test.
+
+Code is separate in `scripts/codex_segment_heff/`; the companion notebook is
+`notebooks/codex_segment_heff.ipynb`. Inputs use the existing NOAA/CMIP `data/`
+symlinks. The recipe averages latitude powers over 15 S--15 N after symmetry
+projection, removes three annual harmonics and mean/trends, uses exact 96
+daily samples with 60-day overlap, and corrects a 10% Tukey taper's variance
+loss. A dataset-specific fixed background pools the full-record S/A spectra
+and uses ten 1-2-1 passes in K and frequency, matching the simple WK plotting
+smoother rather than the calibration's 10/20/40-pass adaptation. Depth bands
+use fractional frequency-cell overlap at integer K, clipped to the current
+wave boxes. Exact daily Nyquist is excluded because direction is ambiguous.
+
+Outputs retain signed P-B, pointwise positive segment excess, positive ratio
+excess, and positive excess of the mean spectrum separately. Positive clipping
+has noise bias. Fractional bin allocation creates no new resolution: near
+40 m at |K|=5--15, one Fourier-frequency bin spans roughly 1--4 m for Kelvin
+and 16--27 m for n=1 ER. Adjacent depth bands and overlapping segments are
+dependent. Mean signed excess is exactly a depth rebinning of the mean WK
+spectrum. See the workflow README for units, geometry and further caveats.
+
+The user explicitly requested committing/pushing and matching both checkouts
+before continuing. Local snapshot `cbe5596` was merged with existing GitHub
+history in `386d795`. Commit `77745a4` preserved Levante's newer NOAA/WK
+notebooks, `Compare_heff.ipynb` and `src/wheeler_kiladis.py`. The newer local
+agent-authored comparison notebooks were retained. Levante's previous source
+state is preserved in `stash@{0}` (`pre-sync-20261102-preserved-source`); no
+archive inputs or analysis outputs were stashed. Both checkouts were clean
+at that commit. Commit `6b60a07` adds the new notebook and completion scripts.
+
+All 31 existing project tests and four new scientific checks passed locally;
+the four new checks also passed in Levante's project environment. NOAA and
+ACCESS-CM2 historical pilots `28655973_0/1` completed in 82/91 seconds with
+about 2.3/3.1 GB maximum RSS, matching integration geometry and passing signed
+power/variance checks. The remaining 58 records run in array `28656027`;
+Slurm permits five concurrent user jobs. Summary/notebook job `28656087`
+depends on successful completion. Products are under
+`data/wave_significance/codex_segment_heff/`. Finish the 60-record audit,
+inspect the executed notebook, copy compact products and the executed notebook
+back, and synchronize final source changes before reporting the full comparison.
+
 ## NOAA–CMIP6 fitted-depth and power comparison — 2026-11-02
 
 The user requested the remaining CMIP6 calculations for comparing fitted
