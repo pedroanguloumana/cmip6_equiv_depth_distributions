@@ -1,5 +1,45 @@
 # Codex handoff — 2026-10-30
 
+## Two-sigma event envelopes and event-implied depths — 2026-11-02
+
+The user requested new NOAA and CMIP6 event catalogs with a 2-sigma envelope
+activity threshold to assess whether stronger components improve inferred
+depths. They clarified that this means the event envelope definition and
+explicitly deferred all Gaussian-background work. Run event detection and the
+existing raw active-component carrier fit/inversion only. Keep every candidate
+and the existing validity/quality flags; preserve the 1.5-sigma catalogs.
+
+No detector/fitter changes were needed: the standard NOAA/CMIP workers already
+accept `--detection-sigma 2 --fit-support component`. The period, cohort,
+profiles, preprocessing, sigma reference, fit grids and quality screens are
+unchanged. A higher threshold changes component boundaries/IDs/support, so do
+not filter the old fitted catalogs or join IDs across thresholds.
+
+Five NOAA and ten CanESM5 Historical/AMIP three-event pilots completed in arrays
+`28660725` and `28660727`, with all 45 fits successful. Checks against matching
+1.5-sigma catalogs verified the same reference sigma and recipe except the
+threshold/pilot limit. Peak observed/model worker RSS is about 10.25 GiB.
+
+`scripts/codex_sigma2_events/submit.py` submitted the full computation:
+NOAA array `28660987` (five waves, one concurrent), CMIP6 array `28660988`
+(four shards, 85/85 Historical and 60/65 AMIP tasks, up to 12 workers each,
+96 CPUs/170 GiB per shard), audit `28660989` dependent on both arrays. The
+full 295-task cohort is pinned to
+`data/cmip6_event_jobs/tasklists/simulations_waves_20261030_205901_2794174.tsv`.
+Submission/shard records and logs are in `data/cmip6_event_jobs/sigma2_component/`.
+The launcher refuses duplicate submissions once its `submission.json` exists.
+
+New `.ds2.component.` CSV/JSON pairs go to the standard NOAA `data/` root and
+`data/cmip6_event_catalogs/`. The audit compares all 600 complete catalogs
+(both thresholds, five waves, 60 records), checking recipes, identity, flags,
+counts, depth units and histogram closure. It writes compact summary and
+5 m depth histograms to `data/event_threshold_comparison/`; no background
+calibration or significance selection is used. The prepared comparison notebook
+is `notebooks/codex_event_threshold_comparison.ipynb` and requires those outputs.
+Complete the full audit and notebook, assess R2 together with support/cycle
+counts and retained fractions, and synchronize final source/results. A higher
+component-fit R2 by itself does not establish a more accurate physical depth.
+
 ## Individual WK-segment depth bands — 2026-11-02
 
 The user additionally requested a two-panel Historical/AMIP figure comparing

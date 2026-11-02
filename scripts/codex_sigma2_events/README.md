@@ -77,3 +77,5 @@ support can make a sinusoid easier to fit while reducing sampled cycles. Compare
 R2, support/cycle counts, search boundaries and depth distributions together.
 Counts and distributions here are descriptive, with no background significance
 interpretation.
+`notebooks/codex_event_threshold_comparison.ipynb` reads the compact products
+to compare counts, fit diagnostics and depth distributions at both thresholds.
