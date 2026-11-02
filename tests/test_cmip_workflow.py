@@ -26,7 +26,7 @@ class CalendarFittingTests(unittest.TestCase):
                 self.assertEqual((times[119].month, times[119].day), (2, 30))
             lon = np.arange(0.5, 360, 1)
             days = np.arange(len(times)) - 119
-            for wave, K in (("Kelvin", 6), ("MRG", -5), ("n0EIG", 5), ("n1ERW", -6)):
+            for wave, K in (("Kelvin", 6), ("MRG", -5), ("n0EIG", 5), ("n1ERW", -6), ("n1WIG", -3)):
                 with self.subTest(calendar=calendar, wave=wave):
                     k = K / EARTH_RADIUS_M
                     if wave == "Kelvin":
@@ -35,7 +35,8 @@ class CalendarFittingTests(unittest.TestCase):
                         omega = (c0*k + np.sqrt((c0*k)**2 + 4*beta*c0)) / 2
                     else:
                         roots = np.roots([1, 0, -(c0*c0*k*k + 3*beta*c0), -beta*k*c0*c0])
-                        omega = min(root.real for root in roots if abs(root.imag) < 1e-12 and root.real > 0)
+                        positive = [root.real for root in roots if abs(root.imag) < 1e-12 and root.real > 0]
+                        omega = max(positive) if wave == "n1WIG" else min(positive)
                     frequency = omega * 86400 / (2*np.pi)
                     values = 0.8 + 5*np.cos(K*np.deg2rad(lon)[None, :] - 2*np.pi*frequency*days[:, None] - 0.4)
                     field = xr.DataArray(values, dims=("time", "lon"), coords=dict(time=times, lon=lon))
@@ -61,6 +62,25 @@ class CalendarFittingTests(unittest.TestCase):
         field = field.drop_isel(time=29)
         with self.assertRaisesRegex(ValueError, "regularly sampled"):
             fit_event_sinusoid(field, times[30], 180, **FIT_OPTIONS["Kelvin"])
+
+    def test_fit_uses_only_supplied_event_support(self):
+        times = xr.date_range("2000-01-01", periods=361, freq="D")
+        lon = np.arange(0.5, 360, 1)
+        c0 = np.sqrt(25 * GRAVITY_M_S2)
+        K = 6
+        frequency = c0 * K / EARTH_RADIUS_M * 86400 / (2*np.pi)
+        days = np.arange(len(times)) - 180
+        values = 5*np.cos(K*np.deg2rad(lon)[None, :] - 2*np.pi*frequency*days[:, None])
+        field = xr.DataArray(values, dims=("time", "lon"), coords=dict(time=times, lon=lon))
+        relative_lon = (lon - 180.5 + 180) % 360 - 180
+        support = np.where((abs(days[:, None]) <= 8) & (abs(relative_lon[None, :]) <= 60))
+        fit, diagnostic = fit_event_sinusoid(field, times[180], 180.5,
+            k_grid=FIT_OPTIONS["Kelvin"]["k_grid"],
+            frequency_grid=FIT_OPTIONS["Kelvin"]["frequency_grid"],
+            support_indices=support)
+        self.assertEqual(diagnostic["observed"].dims, ("sample",))
+        self.assertEqual(diagnostic["observed"].size, len(support[0]))
+        self.assertAlmostEqual(fit["h_eff_m"], 25, places=3)
 
 
 class CMIPLoaderTests(unittest.TestCase):

@@ -12,3 +12,9 @@ archive header scan or scheduler job.
 The existing Levante environment is `cmip6_equiv_depth_distributions`.
 The project's installed package is currently named `src`; its shared paths
 live in `src/paths.py`. The separate catalog library is `cmip_catalog`.
+
+Historical audit data, superseded event catalogs and interrupted null experiments
+are consolidated under [`archived/`](archived/README.md). Active data inputs and
+output locations are described in [`data/README.md`](data/README.md). The previous
+curved-filter catalogs have been archived; recalculation for the revised box/WIG
+profiles is pending.

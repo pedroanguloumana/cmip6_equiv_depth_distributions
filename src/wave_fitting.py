@@ -12,13 +12,13 @@ GRAVITY_M_S2 = 9.80665
 def resting_wave_depth(wave_type, k_rad_m, omega_rad_s):
     """Infer resting-background depth from a fitted, signed (k, omega) pair.
 
-    Supports Kelvin, n1ERW, MRG, and n0EIG. Inputs are angular wavenumber
+    Supports Kelvin, n1ERW, MRG, n0EIG, and n1WIG. Inputs are angular wavenumber
     (rad/m) and positive angular frequency (rad/s). Return c0_m_s,
     h_eff_m, and dispersion_valid. A pair with no positive solution on its
     assigned branch returns NaN speeds/depths and a False validity flag.
     c0 is the gravity-speed parameter, not generally the phase speed omega/k.
     """
-    if wave_type not in {"Kelvin", "n1ERW", "MRG", "n0EIG"}:
+    if wave_type not in {"Kelvin", "n1ERW", "MRG", "n0EIG", "n1WIG"}:
         raise ValueError(f"No depth inversion defined for {wave_type!r}")
 
     k, omega = float(k_rad_m), float(omega_rad_s)
@@ -35,13 +35,17 @@ def resting_wave_depth(wave_type, k_rad_m, omega_rad_s):
             if direction_ok and denominator > 0:
                 c0 = omega**2 / denominator
         else:
-            # The n=1 Matsuno relation is quadratic in c0. The larger positive
-            # root selects ER; the smaller root would give a WIG interpretation.
+            # The n=1 Matsuno relation is quadratic in c0. For westward k,
+            # the smaller positive root is WIG; the larger one is ER when it exists.
             coefficient = k**2 + beta * k / omega
-            if k < 0 and coefficient < 0:
+            if k < 0:
                 discriminant = (3 * beta)**2 + 4 * coefficient * omega**2
                 if discriminant >= 0:
-                    c0 = (-3 * beta - np.sqrt(discriminant)) / (2 * coefficient)
+                    if wave_type == "n1WIG":
+                        # Rationalized small root also handles coefficient=0.
+                        c0 = 2 * omega**2 / (3 * beta + np.sqrt(discriminant))
+                    elif coefficient < 0:
+                        c0 = (-3 * beta - np.sqrt(discriminant)) / (2 * coefficient)
 
     valid = bool(np.isfinite(c0) and c0 > 0)
     return {
@@ -58,12 +62,13 @@ def fit_event_sinusoid(
     *,
     k_grid,
     frequency_grid,
-    half_window_days,
-    half_width_deg,
-    time_sigma_days,
-    lon_sigma_deg,
+    half_window_days=None,
+    half_width_deg=None,
+    time_sigma_days=None,
+    lon_sigma_deg=None,
+    support_indices=None,
 ):
-    """Fit a weighted sinusoid around one event peak.
+    """Fit a sinusoid in a fixed window or on an event's active pixels.
 
     The model is ``q = b + A*cos(theta) + B*sin(theta)``, where
     ``theta = K*longitude_offset_rad - 2*pi*f*time_offset_days``.
@@ -86,7 +91,11 @@ def fit_event_sinusoid(
     time_sigma_days, lon_sigma_deg
         Gaussian weighting scales around the event center, in days and
         degrees. These set relative influence within the window, not errors
-        on the fitted parameters.
+        on the fitted parameters. Used only for a fixed-window fit.
+    support_indices : pair of integer arrays, optional
+        Time and longitude indices of one detected envelope component. With
+        this input, fit only those active pixels with equal weights; fixed
+        window widths and Gaussian weight scales are unused.
 
     Returns
     -------
@@ -96,12 +105,12 @@ def fit_event_sinusoid(
         sampled cycle counts, and optimizer/boundary flags. Phase follows
         ``q = offset + amplitude*cos(theta - phase_rad)``.
         For compatibility, ``h_eff_m`` retains the notebook's Kelvin-only
-        conversion, phase_speed**2/g. For ER, MRG, and EIG use the fitted
+        conversion, phase_speed**2/g. For ER, MRG, EIG, and WIG use the fitted
         k and omega with that family's dispersion relation instead.
     diagnostic : dict
-        Observed and fitted local DataArrays, Gaussian weights, coarse
-        search grids, and their R2 surface. Coordinates are preserved;
-        the local longitude coordinate is the offset from center_lon.
+        Observed and fitted local DataArrays, weights, coarse search grids,
+        and their R2 surface. For component fits, the DataArrays use a sample
+        dimension with time and local longitude coordinates.
     """
     # Select by sample position: converting cftime dates to Gregorian dates would
     # distort a model's calendar (and fails outright on dates such as February 30).
@@ -110,37 +119,58 @@ def fit_event_sinusoid(
         center_index = center_index.start
     if not isinstance(center_index, (int, np.integer)):
         raise ValueError("center_time must identify exactly one daily sample.")
-    first, stop = center_index - half_window_days, center_index + half_window_days + 1
-    if first < 0 or stop > field.sizes["time"]:
-        raise ValueError("The full event fitting window is not available.")
-    patch = field.isel(time=slice(first, stop))
     center_time = field.time.values[center_index]
-    if np.issubdtype(patch.time.dtype, np.datetime64):
-        lag_days = (patch.time.values - center_time) / np.timedelta64(1, "D")
+    if support_indices is None:
+        if any(value is None for value in (half_window_days, half_width_deg,
+                                           time_sigma_days, lon_sigma_deg)):
+            raise ValueError("Fixed-window fits require window widths and weight scales.")
+        first, stop = center_index - half_window_days, center_index + half_window_days + 1
+        if first < 0 or stop > field.sizes["time"]:
+            raise ValueError("The full event fitting window is not available.")
+        patch = field.isel(time=slice(first, stop))
+        if np.issubdtype(patch.time.dtype, np.datetime64):
+            lag_days = (patch.time.values - center_time) / np.timedelta64(1, "D")
+        else:
+            lag_days = np.array([
+                (value - center_time).total_seconds() / 86400.0
+                for value in patch.time.values
+            ])
+        if not np.allclose(lag_days, np.arange(-half_window_days, half_window_days + 1)):
+            raise ValueError("The fitting window must be regularly sampled once per day.")
+        # Wrap before selecting longitudes, then retain the fixed local window.
+        relative_lon = (patch.lon.values - center_lon + 180) % 360 - 180
+        order = np.argsort(relative_lon)
+        order = order[np.abs(relative_lon[order]) <= half_width_deg]
+        patch = patch.isel(lon=order).assign_coords(lon=relative_lon[order])
+        lon_rad, lag = np.meshgrid(np.deg2rad(patch.lon.values), lag_days)
+        weights = np.exp(
+            -0.5 * (lag / time_sigma_days) ** 2
+            - 0.5 * (np.rad2deg(lon_rad) / lon_sigma_deg) ** 2
+        )
+        observed = patch
+        y = patch.values.ravel()
+        x = lon_rad.ravel()
+        lag = lag.ravel()
+        sample_shape = patch.shape
+        spatial_span_deg = float(np.ptp(patch.lon.values))
     else:
-        lag_days = np.array([
-            (value - center_time).total_seconds() / 86400.0
-            for value in patch.time.values
-        ])
-    if not np.allclose(lag_days, np.arange(-half_window_days, half_window_days + 1)):
-        raise ValueError("The fitting window must be regularly sampled once per day.")
-
-    # Wrap before selecting longitudes: a packet at 359 degrees should include
-    # nearby observations at 0 degrees. Sorting makes the local coordinate monotonic.
-    relative_lon = (patch.lon.values - center_lon + 180) % 360 - 180
-    order = np.argsort(relative_lon)
-    order = order[np.abs(relative_lon[order]) <= half_width_deg]
-    patch = patch.isel(lon=order).assign_coords(lon=relative_lon[order])
-    lon_rad, lag = np.meshgrid(np.deg2rad(patch.lon.values), lag_days)
-
-    # Emphasize the event neighborhood while fitting both signs of the OLR anomaly.
+        ti, xi = (np.asarray(indices, dtype=int) for indices in support_indices)
+        if (ti.ndim != 1 or xi.ndim != 1 or len(ti) != len(xi) or len(ti) < 3
+                or (ti < 0).any() or (ti >= field.sizes["time"]).any()
+                or (xi < 0).any() or (xi >= field.sizes["lon"]).any()):
+            raise ValueError("support_indices must identify at least three valid field pixels.")
+        lag = (ti - center_index).astype(float)
+        relative_lon = (field.lon.values[xi] - center_lon + 180) % 360 - 180
+        x = np.deg2rad(relative_lon)
+        y = field.values[ti, xi]
+        weights = np.ones_like(y)
+        observed = xr.DataArray(y, dims="sample", coords=dict(
+            sample=np.arange(len(y)), time=("sample", field.time.values[ti]),
+            lon=("sample", relative_lon)))
+        sample_shape = observed.shape
+        spatial_span_deg = float(np.ptp(relative_lon))
     # Multiplying residuals by sqrt(weight) makes their squares carry weight once.
-    weights = np.exp(
-        -0.5 * (lag / time_sigma_days) ** 2
-        - 0.5 * (np.rad2deg(lon_rad) / lon_sigma_deg) ** 2
-    )
     sqrt_weights = np.sqrt(weights).ravel()
-    y = patch.values.ravel()
     weighted_y = sqrt_weights * y
 
     # Compare the wave model with the best constant-only model in the same window.
@@ -152,9 +182,10 @@ def fit_event_sinusoid(
 
     # Optimize frequency as cycles per window, avoiding very different parameter
     # scales for K and cycles/day. Convert back to cycles/day after refinement.
-    time_span_days = float(np.ptp(lag_days))
-    x = lon_rad.ravel()
-    scaled_time = lag.ravel() / time_span_days
+    time_span_days = float(np.ptp(lag))
+    if time_span_days <= 0:
+        raise ValueError("The fit support must span more than one time sample.")
+    scaled_time = lag / time_span_days
 
     def residuals(parameters):
         # For fixed K and frequency the offset, cosine and sine coefficients are
@@ -199,7 +230,7 @@ def fit_event_sinusoid(
     b, A, B = np.linalg.lstsq(
         sqrt_weights[:, None] * design, weighted_y, rcond=None
     )[0]
-    model = (design @ np.array([b, A, B])).reshape(patch.shape)
+    model = (design @ np.array([b, A, B])).reshape(sample_shape)
 
     # K is global cycles/360 degrees; dimensional k and omega use radians.
     # omega/k keeps the propagation direction through the sign of k.
@@ -226,14 +257,14 @@ def fit_event_sinusoid(
         phase_rad=float(np.arctan2(B, A)),
         weighted_r2=float(1 - np.sum(solution.fun ** 2)),
         # A cycle count is positive for westward as well as eastward waves.
-        spatial_cycles=float(abs(K) * np.ptp(patch.lon.values) / 360),
+        spatial_cycles=float(abs(K) * spatial_span_deg / 360),
         temporal_cycles=float(frequency * time_span_days),
         fit_success=bool(solution.success),
         at_search_edge=bool(at_edge),
     )
     diagnostic = dict(
-        observed=patch,
-        fitted=patch.copy(data=model),
+        observed=observed,
+        fitted=observed.copy(data=model),
         weights=weights,
         k_grid=k_grid,
         frequency_grid=frequency_grid,

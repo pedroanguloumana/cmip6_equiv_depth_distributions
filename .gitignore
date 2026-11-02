@@ -5,4 +5,7 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .ipynb_checkpoints/
-/archived/event_catalogs/
+/scripts/phase_fit_validation/logs/
+/archived/*
+!/archived/README.md
+!/archived/move_manifests/

@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "batch": "20261030T104134Z_pre_box_profiles",
+  "host": "Big-Papa.local",
+  "machine": "local",
+  "root": "/Users/pedro/Projects/Analysis/cmip6_equiv_depth_distributions",
+  "started_utc": "2026-10-30T10:46:23.889233+00:00",
+  "queue_before": "",
+  "moves": [
+    {
+      "source": "data/cmip6_event_jobs",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/cmip6_event_jobs",
+      "reason": "Superseded curved-filter CMIP catalogs or their NOAA/CMIP job records.",
+      "before": {
+        "files": 1,
+        "directories": 3,
+        "bytes": 4894,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89130622,
+        "size": 128,
+        "mtime_ns": 1793329713250986351
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89130622,
+        "size": 128,
+        "mtime_ns": 1793329713250986351
+      },
+      "after": {
+        "files": 1,
+        "directories": 3,
+        "bytes": 4894,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/noaa_olr_event_jobs",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa_olr_event_jobs",
+      "reason": "Superseded curved-filter CMIP catalogs or their NOAA/CMIP job records.",
+      "before": {
+        "files": 1,
+        "directories": 2,
+        "bytes": 5059,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89088890,
+        "size": 96,
+        "mtime_ns": 1793289908107260179
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89088890,
+        "size": 96,
+        "mtime_ns": 1793289908107260179
+      },
+      "after": {
+        "files": 1,
+        "directories": 2,
+        "bytes": 5059,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/wave_significance",
+      "destination": "archived/wave_significance/20261030T104134Z_pre_box_profiles",
+      "reason": "Pilot diagnostics and interrupted/planned calibrations for the superseded filter settings.",
+      "before": {
+        "files": 20,
+        "directories": 11,
+        "bytes": 959171,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89200047,
+        "size": 192,
+        "mtime_ns": 1793348584562127360
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 16777230,
+        "inode": 89200047,
+        "size": 192,
+        "mtime_ns": 1793348584562127360
+      },
+      "after": {
+        "files": 20,
+        "directories": 11,
+        "bytes": 959171,
+        "symlinks": 0
+      },
+      "verified": true
+    }
+  ],
+  "skipped": [
+    {
+      "source": "data/archive/catalog-audit-2026-10-27",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv.parts",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.json",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv.parts",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.json",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv.parts",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.json",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv.parts",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.json",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/cmip6_event_catalogs",
+      "reason": "Not present in this development clone."
+    },
+    {
+      "source": "data/cmip6_rlut",
+      "reason": "Not present in this development clone."
+    }
+  ],
+  "kept_inputs_before": {
+    "data/archived": {
+      "present": true,
+      "device": 16777230,
+      "inode": 89186324,
+      "size": 11,
+      "mtime_ns": 1793329118987688525,
+      "target": "../archived",
+      "resolved": "/Users/pedro/Projects/Analysis/cmip6_equiv_depth_distributions/archived",
+      "target_exists": true
+    },
+    "data/noaa_olr": {
+      "present": false
+    },
+    "data/cmip6": {
+      "present": false
+    },
+    "data/catalogs": {
+      "present": false
+    },
+    "data/cmip6_rlut_noaa1deg": {
+      "present": false
+    },
+    "data/cmip6_catalog.parquet": {
+      "present": false
+    },
+    "data/cmip6_headers.parquet": {
+      "present": false
+    },
+    "data/cmip6_regrid_jobs": {
+      "present": true,
+      "device": 16777230,
+      "inode": 89159873,
+      "size": 96,
+      "mtime_ns": 1793324054345152755
+    }
+  },
+  "model_files_before": null,
+  "interpretation": "Superseded curved-filter outputs, partial runs and historical audit records; payloads preserved by same-filesystem rename.",
+  "payload_deletions": false,
+  "snapshot": "archived/cleanup_snapshots/20261030T104134Z_pre_box_profiles/local",
+  "kept_inputs_after": {
+    "data/archived": {
+      "present": true,
+      "device": 16777230,
+      "inode": 89186324,
+      "size": 11,
+      "mtime_ns": 1793329118987688525,
+      "target": "../archived",
+      "resolved": "/Users/pedro/Projects/Analysis/cmip6_equiv_depth_distributions/archived",
+      "target_exists": true
+    },
+    "data/noaa_olr": {
+      "present": false
+    },
+    "data/cmip6": {
+      "present": false
+    },
+    "data/catalogs": {
+      "present": false
+    },
+    "data/cmip6_rlut_noaa1deg": {
+      "present": false
+    },
+    "data/cmip6_catalog.parquet": {
+      "present": false
+    },
+    "data/cmip6_headers.parquet": {
+      "present": false
+    },
+    "data/cmip6_regrid_jobs": {
+      "present": true,
+      "device": 16777230,
+      "inode": 89159873,
+      "size": 96,
+      "mtime_ns": 1793324054345152755
+    }
+  },
+  "model_files_after": null,
+  "completed_utc": "2026-10-30T10:46:23.899652+00:00",
+  "recreated_empty_outputs": [
+    "data/cmip6_event_catalogs",
+    "data/cmip6_event_jobs",
+    "data/noaa_olr_event_jobs",
+    "data/wave_significance"
+  ],
+  "documents": [
+    ".gitignore",
+    "README.md",
+    "data/README.md",
+    "docs/catalog_workflow.md",
+    "docs/cmip6_header_check.md",
+    "scripts/README.md",
+    "notebooks/README.md",
+    "src/paths.py",
+    "archived/README.md"
+  ],
+  "totals": {
+    "files": 22,
+    "bytes": 969124
+  }
+}

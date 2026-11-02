@@ -1,0 +1,34 @@
+{
+  "status": "verified",
+  "moved_entries": 18,
+  "preserved_files": 284390,
+  "catalog_counts": {
+    "noaa_complete": 4,
+    "cmip_complete": 127,
+    "cmip_partial": 4
+  },
+  "model_input_discovery": {
+    "historical": 34,
+    "amip": 25
+  },
+  "archive_document_links": 7,
+  "active_catalog_loaders_exclude_archived": true,
+  "legacy_input_link": "/home/b/b382284/Projects/cmip6_equiv_depth_distributions/data/archived/data_links/cmip6_rlut",
+  "legacy_input_resolves": true,
+  "project_queue_empty": true,
+  "active_data_entries": [
+    "README.md",
+    "archived",
+    "catalogs",
+    "cmip6",
+    "cmip6_catalog.parquet",
+    "cmip6_event_catalogs",
+    "cmip6_event_jobs",
+    "cmip6_headers.parquet",
+    "cmip6_regrid_jobs",
+    "cmip6_rlut_noaa1deg",
+    "noaa_olr",
+    "noaa_olr_event_jobs",
+    "wave_significance"
+  ]
+}

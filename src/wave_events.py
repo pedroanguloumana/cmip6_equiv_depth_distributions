@@ -27,56 +27,35 @@ import xr_ccew as tw
 from .paths import DATA_DIR, PROJECT_ROOT
 from . import wave_fitting
 from .wave_fitting import fit_event_sinusoid, resting_wave_depth
+from .wave_profiles import BOX_PROFILES
 
 
-WAVE_PROFILES = {
-    "Kelvin": tw.WaveProfile(
-        name="Broad KW", k_min=3, k_max=14,
-        frequency_min=1/14, frequency_max=1/2.5,
-        equivalent_depth_min=1, equivalent_depth_max=200,
-        symmetry="symmetric", direction="eastward", curve_name="kelvin",
-    ),
-    "n1ERW": tw.WaveProfile(
-        name="Broad n=1 ERW", k_min=-20, k_max=-1,
-        frequency_min=1/90, frequency_max=1/10,
-        equivalent_depth_min=1, equivalent_depth_max=200,
-        symmetry="symmetric", direction="westward", curve_name="er",
-        meridional_mode_number=1,
-    ),
-    "n0EIG": tw.WaveProfile(
-        name="Broad n=0 EIG", k_min=1, k_max=14,
-        frequency_min=1/6, frequency_max=1/2.5,
-        equivalent_depth_min=1, equivalent_depth_max=200,
-        symmetry="antisymmetric", direction="eastward", curve_name="eig0",
-        meridional_mode_number=0,
-    ),
-    "MRG": tw.WaveProfile(
-        name="Broad MRG", k_min=-10, k_max=-1,
-        frequency_min=1/10, frequency_max=1/2.5,
-        equivalent_depth_min=1, equivalent_depth_max=200,
-        symmetry="antisymmetric", direction="westward", curve_name="mrg",
-    ),
-}
+WAVE_PROFILES = BOX_PROFILES
 
 FIT_OPTIONS = {
     "Kelvin": dict(
-        k_grid=np.arange(3.0, 14.5, 0.5),
+        k_grid=np.arange(1.0, 15.5, 0.5),
         frequency_grid=np.linspace(1/14, 1/2.5, 17),
         half_window_days=10, half_width_deg=90, time_sigma_days=5, lon_sigma_deg=45,
     ),
     "n1ERW": dict(
-        k_grid=np.arange(-20.0, -0.5, 0.5),
+        k_grid=np.arange(-15.0, -0.5, 0.5),
         frequency_grid=np.linspace(1/90, 1/10, 17),
         half_window_days=90, half_width_deg=90, time_sigma_days=45, lon_sigma_deg=45,
     ),
     "n0EIG": dict(
         k_grid=np.arange(1.0, 14.5, 0.5),
-        frequency_grid=np.linspace(1/6, 1/2.5, 17),
+        frequency_grid=np.linspace(1/6, 1/2.25, 17),
         half_window_days=10, half_width_deg=90, time_sigma_days=5, lon_sigma_deg=45,
     ),
     "MRG": dict(
         k_grid=np.arange(-10.0, -0.5, 0.5),
-        frequency_grid=np.linspace(1/10, 1/2.5, 17),
+        frequency_grid=np.linspace(1/10, 1/2.25, 17),
+        half_window_days=10, half_width_deg=90, time_sigma_days=5, lon_sigma_deg=45,
+    ),
+    "n1WIG": dict(
+        k_grid=np.arange(-15.0, -0.5, 0.5),
+        frequency_grid=np.linspace(1/4, 1/2, 17),
         half_window_days=10, half_width_deg=90, time_sigma_days=5, lon_sigma_deg=45,
     ),
 }
@@ -91,7 +70,7 @@ PEAK_SIGMA = 1.5
 MIN_DURATION_DAYS = 2
 MIN_LONGITUDE_SPAN_DEG = 10
 MIN_WEIGHTED_R2 = 0.3
-MIN_SPATIAL_CYCLES = 1.0
+MIN_SPATIAL_CYCLES = 0.5  # Global |K|=1 spans half a cycle in the 180-degree fit window.
 MIN_TEMPORAL_CYCLES = 1.0
 
 CSV_COLUMNS = [
@@ -149,13 +128,19 @@ def filter_olr_for_wave(olr, wave_type):
     return filtered.sel(lat=slice(*AVERAGE_LAT_RANGE)).mean("lat").transpose("time", "lon")
 
 
-def detect_events(field):
-    """Return peak-time-sorted packet candidates and their signed-field sigma."""
+def detect_events(field, *, detection_sigma=DETECTION_SIGMA, return_support=False):
+    """Return envelope components above detection_sigma times the field sigma.
+
+    The same value seeds active pixels and supplies the candidate peak minimum.
+    Optionally map event IDs to their active time/longitude pixel indices.
+    """
+    if not np.isfinite(detection_sigma) or detection_sigma <= 0:
+        raise ValueError("detection_sigma must be finite and positive.")
     sigma = float(field.isel(time=slice(REFERENCE_EXCLUDE_DAYS, -REFERENCE_EXCLUDE_DAYS)).std())
     if not np.isfinite(sigma) or sigma <= 0:
         raise ValueError("The filtered field has no finite positive reference standard deviation.")
     envelope = np.abs(hilbert(field.values, axis=1))
-    labels, _ = ndimage.label(envelope > DETECTION_SIGMA*sigma, structure=np.ones((3, 3), dtype=int))
+    labels, _ = ndimage.label(envelope > detection_sigma*sigma, structure=np.ones((3, 3), dtype=int))
     # Preserve the notebook's same-day and adjacent-day periodic connections.
     for row in range(labels.shape[0]):
         for neighbor in range(max(0, row-1), min(labels.shape[0], row+2)):
@@ -164,6 +149,7 @@ def detect_events(field):
                 labels[labels == max(left, right)] = min(left, right)
 
     events = []
+    support = {} if return_support else None
     # Bounding boxes avoid rescanning the entire 21-year field for every label.
     # The candidate definition and label IDs remain those of the notebook.
     for component, box in enumerate(ndimage.find_objects(labels), start=1):
@@ -178,19 +164,22 @@ def detect_events(field):
         span = float(360 - np.diff(np.r_[longitudes, longitudes[0]+360]).max())
         if (ti.min() == 0 or ti.max() == field.sizes["time"]-1
                 or duration < MIN_DURATION_DAYS or span < MIN_LONGITUDE_SPAN_DEG
-                or amplitude < PEAK_SIGMA*sigma):
+                or amplitude <= detection_sigma*sigma):
             continue
         events.append(dict(
             event_id=int(component), peak_time=field.time.values[ti[peak]],
             peak_lon_deg=float(field.lon.values[xi[peak]]), duration_days=duration,
             span_deg=span, peak_amplitude_W_m2=amplitude,
         ))
+        if return_support:
+            support[int(component)] = (ti, xi)
     events.sort(key=lambda event: event["peak_time"])
-    return events, sigma
+    return (events, sigma, support) if return_support else (events, sigma)
 
 
 def make_catalog_configuration(dataset_id, wave_type, start, end, *, identity,
-                               input_paths, code_paths, max_events=None):
+                               input_paths, code_paths, max_events=None,
+                               detection_sigma=DETECTION_SIGMA, fit_support="window"):
     """Record exact scientific settings, source identity and code/input versions.
 
     dataset_id is the readable filename prefix; identity supplies the row-level
@@ -199,8 +188,13 @@ def make_catalog_configuration(dataset_id, wave_type, start, end, *, identity,
     if set(identity) != {"dataset", "source_id", "experiment_id", "member_id",
                          "source_grid_label", "analysis_grid", "calendar"}:
         raise ValueError("Supply the complete dataset/model/member/grid/calendar identity.")
+    if not np.isfinite(detection_sigma) or detection_sigma <= 0:
+        raise ValueError("detection_sigma must be finite and positive.")
+    if fit_support not in ("window", "component"):
+        raise ValueError("fit_support must be 'window' or 'component'.")
+    fit_keys = ("k_grid", "frequency_grid") if fit_support == "component" else FIT_OPTIONS[wave_type]
     options = {key: value.tolist() if isinstance(value, np.ndarray) else value
-               for key, value in FIT_OPTIONS[wave_type].items()}
+               for key, value in FIT_OPTIONS[wave_type].items() if key in fit_keys}
     inputs = []
     for path in input_paths:
         path = Path(path)
@@ -211,6 +205,7 @@ def make_catalog_configuration(dataset_id, wave_type, start, end, *, identity,
     return {
         "schema_version": 2, "dataset_id": dataset_id, "identity": identity,
         "wave_type": wave_type, "start": start, "end": end,
+        "fit_support": fit_support,
         "max_events": max_events, "profile": WAVE_PROFILES[wave_type].as_dict(),
         "fit_options": options,
         "preprocessing": dict(lat_range=LAT_RANGE, average_lat_range=AVERAGE_LAT_RANGE,
@@ -218,7 +213,7 @@ def make_catalog_configuration(dataset_id, wave_type, start, end, *, identity,
                               remove_mean_and_trend=True, taper_fraction=TAPER_FRACTION,
                               reference_exclude_days=REFERENCE_EXCLUDE_DAYS,
                               calendar_handling="native; one model day = 86400 s"),
-        "detection": dict(detection_sigma=DETECTION_SIGMA, peak_sigma=PEAK_SIGMA,
+        "detection": dict(detection_sigma=float(detection_sigma), peak_sigma=float(detection_sigma),
                           min_duration_days=MIN_DURATION_DAYS, min_longitude_span_deg=MIN_LONGITUDE_SPAN_DEG,
                           connectivity=8, periodic_longitude=True, envelope_axis="lon"),
         "fit_screens": dict(min_weighted_r2=MIN_WEIGHTED_R2, min_spatial_cycles=MIN_SPATIAL_CYCLES,
@@ -243,10 +238,13 @@ def catalog_path(configuration, output_dir=DATA_DIR):
         f"{configuration['start'].replace('-', '')}-{configuration['end'].replace('-', '')}."
         f"k{number(k[0])}to{number(k[-1])}_dk{number(k[1]-k[0])}."
         f"f{number(f[0])}to{number(f[-1])}_nf{len(f)}."
-        f"tw{number(options['half_window_days'])}_lw{number(options['half_width_deg'])}."
-        f"ts{number(options['time_sigma_days'])}_ls{number(options['lon_sigma_deg'])}."
-        f"{digest}"
+        f"ds{number(configuration['detection']['detection_sigma'])}."
+        f"{'component' if configuration['fit_support'] == 'component' else 'window'}."
     )
+    if configuration["fit_support"] == "window":
+        name += (f"tw{number(options['half_window_days'])}_lw{number(options['half_width_deg'])}."
+                 f"ts{number(options['time_sigma_days'])}_ls{number(options['lon_sigma_deg'])}.")
+    name += digest
     if configuration["max_events"] is not None:
         name += f".pilot{configuration['max_events']}"
     return Path(output_dir) / (name + ".csv")
@@ -300,10 +298,17 @@ def run_event_catalog(configuration, load_field, *, output_dir=DATA_DIR, overwri
         preprocessing_seconds = time.monotonic() - started
         print(f"Load/filter: {preprocessing_seconds:.1f} s", flush=True)
         detection_started = time.monotonic()
-        events, sigma = detect_events(field)
+        component_fit = configuration.get("fit_support", "window") == "component"
+        detected = detect_events(field,
+            detection_sigma=configuration["detection"]["detection_sigma"],
+            return_support=component_fit)
+        if component_fit:
+            events, sigma, support = detected
+        else:
+            events, sigma = detected
         detection_seconds = time.monotonic() - detection_started
-        options = FIT_OPTIONS[wave_type]
-        half_window = int(options["half_window_days"])
+        options = configuration["fit_options"]
+        half_window = int(options["half_window_days"]) if not component_fit else 0
         time_index = field.get_index("time")
         # Count all eligible windows before applying a pilot limit. This gives
         # the correct multiplier when extrapolating a pilot to the full catalog.
@@ -334,8 +339,11 @@ def run_event_catalog(configuration, load_field, *, output_dir=DATA_DIR, overwri
             if full_window:
                 fit_started = time.monotonic()
                 try:
+                    fit_options = dict(options)
+                    if component_fit:
+                        fit_options["support_indices"] = support[event["event_id"]]
                     fit, diagnostic = fit_event_sinusoid(
-                        field, peak, event["peak_lon_deg"], **options,
+                        field, peak, event["peak_lon_deg"], **fit_options,
                     )
                     del diagnostic  # Do not accumulate patches/models for thousands of events.
                     fit.update(resting_wave_depth(wave_type, fit["k_rad_m"], fit["omega_rad_s"]))
@@ -425,7 +433,7 @@ def load_event_catalog(model, experiment, wave_type, *, member_id=None,
     model, experiment, wave_type : str
         Use model="NOAA_OLR" (alias "NOAA") and experiment="observations"
         for NOAA. For CMIP6 use the source_id and "historical" or "amip".
-        Wave labels are Kelvin, n1ERW, MRG and n0EIG.
+        Wave labels are Kelvin, n1ERW, MRG, n0EIG and n1WIG.
     member_id : str, optional
         Select a particular CMIP member; otherwise the match must be unique.
     year_range : pair of int or None

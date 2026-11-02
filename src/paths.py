@@ -5,6 +5,8 @@ from pathlib import Path
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
 DATA_DIR = PROJECT_ROOT / "data"
+# data/archived is the local symlink to the canonical project archived/ folder.
+ARCHIVED_DIR = DATA_DIR / "archived"
 FIGURE_DIR = PROJECT_ROOT / "figures"
 
 CMIP6_ARCHIVE_DIR = DATA_DIR / "cmip6"
@@ -15,8 +17,8 @@ CMIP6_HEADERS_FILE = DATA_DIR / "cmip6_headers.parquet"
 NOAA_OLR_FILE = DATA_DIR / "noaa_olr" / "OLR-Daily_v02r00_s19790101_e20251231.nc"
 NOAA_OLR_JOB_DIR = DATA_DIR / "noaa_olr_event_jobs"
 
-# The regridded historical rlut archive is configured with a local symlink.
-CMIP6_RLUT_DIR = DATA_DIR / "cmip6_rlut"
+# The superseded 2000--2010 IMERG-grid input link is retained for reference.
+CMIP6_RLUT_DIR = ARCHIVED_DIR / "data_links" / "cmip6_rlut"
 CMIP6_EVENT_DIR = DATA_DIR / "cmip6_event_catalogs"
 CMIP6_EVENT_JOB_DIR = DATA_DIR / "cmip6_event_jobs"
 
@@ -26,4 +28,7 @@ CMIP6_NOAA_GRID_DIR = DATA_DIR / "cmip6_rlut_noaa1deg"
 CMIP6_REGRID_JOB_DIR = DATA_DIR / "cmip6_regrid_jobs"
 
 # data/archived points to the project's existing archived/ folder on Levante.
-ARCHIVED_EVENT_DIR = DATA_DIR / "archived" / "event_catalogs"
+ARCHIVED_EVENT_DIR = ARCHIVED_DIR / "event_catalogs"
+
+# Diagnostic null calibrations are separate from fitted event catalogs.
+WAVE_SIGNIFICANCE_DIR = DATA_DIR / "wave_significance"

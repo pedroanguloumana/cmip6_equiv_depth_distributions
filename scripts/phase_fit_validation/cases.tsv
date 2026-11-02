@@ -1,0 +1,15 @@
+NOAA_OLR	observations	Kelvin
+NOAA_OLR	observations	n1ERW
+NOAA_OLR	observations	n0EIG
+NOAA_OLR	observations	MRG
+NOAA_OLR	observations	n1WIG
+ACCESS-CM2	historical	Kelvin
+ACCESS-CM2	historical	n1ERW
+ACCESS-CM2	historical	n0EIG
+ACCESS-CM2	historical	MRG
+ACCESS-CM2	historical	n1WIG
+ACCESS-CM2	amip	Kelvin
+ACCESS-CM2	amip	n1ERW
+ACCESS-CM2	amip	n0EIG
+ACCESS-CM2	amip	MRG
+ACCESS-CM2	amip	n1WIG

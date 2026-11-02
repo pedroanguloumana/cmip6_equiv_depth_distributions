@@ -38,7 +38,7 @@ pressure-qualified selection. New variables, periods or archive changes
 may require additional metadata; missing evidence must remain unknown.
 
 The previous audit's reports, notebook snapshots, runner and redundant
-caches are preserved under `data/archive/catalog-audit-2026-10-27/`.
+caches are preserved under `archived/catalog-audit-2026-10-27/`.
 They are historical records, not inputs to normal notebook execution.
 
 ## Why the archive symlinks exist

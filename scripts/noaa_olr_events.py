@@ -33,6 +33,10 @@ def main():
     parser.add_argument("--wave", required=True, choices=tuple(WAVE_PROFILES))
     parser.add_argument("--start", default="1990-01-01", help="Inclusive first date, YYYY-MM-DD")
     parser.add_argument("--end", default="2010-12-31", help="Inclusive last date, YYYY-MM-DD")
+    parser.add_argument("--detection-sigma", type=float, choices=(1.0, 1.5, 2.0), default=1.5,
+                        help="Envelope activity cutoff in signed-field standard deviations")
+    parser.add_argument("--fit-support", choices=("window", "component"), default="window",
+                        help="Fit the fixed weighted window or active envelope component pixels")
     parser.add_argument("--max-events", type=int, help="Fit only the first N candidates; filename includes pilotN")
     parser.add_argument("--overwrite", action="store_true", help="Recompute this exact catalog and its checkpoints")
     args = parser.parse_args()
@@ -52,6 +56,7 @@ def main():
     configuration = make_catalog_configuration(
         "NOAA_OLR", args.wave, args.start, args.end, identity=identity,
         input_paths=[NOAA_OLR_FILE], code_paths={"worker": Path(__file__)}, max_events=args.max_events,
+        detection_sigma=args.detection_sigma, fit_support=args.fit_support,
     )
     run_event_catalog(
         configuration,

@@ -1,0 +1,3 @@
+source,experiment,wave,case,morphology,true_K_global,true_frequency_cpd,true_period_days,center_lon_deg,retained_energy_fraction,filtered_packet_peak_W_m2,template_event_id,template_selection,template_duration_days,template_span_deg,template_roughness,template_peak_W_m2
+NOAA_OLR,observations,n1ERW,0,smooth,-1,0.011209056209028045,89.21357707124136,180.5,0.5174839161212815,0.509870478178841,,,,,,
+NOAA_OLR,observations,n1ERW,0,empirical_rough,-1,0.011209056209028045,89.21357707124136,180.5,0.4532983717627174,0.4768688158727112,210,significant,34,135.0,0.06880984338768385,34.318024201795566

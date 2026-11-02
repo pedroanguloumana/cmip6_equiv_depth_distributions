@@ -14,10 +14,14 @@ PYTHON_BIN="${PYTHON_BIN:-$HOME/.conda/envs/cmip6_equiv_depth_distributions/bin/
 # Full native-calendar years avoid imposing Gregorian month lengths on models.
 MODELS="${MODELS:-}"
 EXPERIMENTS="${EXPERIMENTS:-historical amip}"
-WAVES="${WAVES:-Kelvin n1ERW n0EIG MRG}"
+WAVES="${WAVES:-Kelvin n1ERW n0EIG MRG n1WIG}"
 START_YEAR="${START_YEAR:-1990}"
 END_YEAR="${END_YEAR:-2010}"
 MAX_EVENTS="${MAX_EVENTS:-}"
+DETECTION_SIGMA="${DETECTION_SIGMA:-1.5}"
+FIT_SUPPORT="${FIT_SUPPORT:-window}"
+case "$DETECTION_SIGMA" in 1|1.0|1.5|2|2.0) ;; *) echo "DETECTION_SIGMA must be 1, 1.5 or 2" >&2; exit 2 ;; esac
+case "$FIT_SUPPORT" in window|component) ;; *) echo "FIT_SUPPORT must be window or component" >&2; exit 2 ;; esac
 OVERWRITE="${OVERWRITE:-0}"
 DRY_RUN="${DRY_RUN:-0}"
 
@@ -47,7 +51,9 @@ if [[ -n "${SLURM_ARRAY_TASK_ID:-}" ]]; then
     : "${TASKLIST:?The launcher must provide TASKLIST}"
     IFS=$'\t' read -r model experiment member wave <<< "$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$TASKLIST")"
     [[ -n "$model" && -n "$experiment" && -n "$member" && -n "$wave" ]] || { echo "Missing simulation/wave at array index $SLURM_ARRAY_TASK_ID" >&2; exit 1; }
-    args=(--model "$model" --experiment "$experiment" --member "$member" --wave "$wave" --start-year "$START_YEAR" --end-year "$END_YEAR")
+    args=(--model "$model" --experiment "$experiment" --member "$member" --wave "$wave"
+        --start-year "$START_YEAR" --end-year "$END_YEAR"
+        --detection-sigma "$DETECTION_SIGMA" --fit-support "$FIT_SUPPORT")
     if [[ -n "$MAX_EVENTS" ]]; then args+=(--max-events "$MAX_EVENTS"); fi
     if [[ "$OVERWRITE" == 1 ]]; then args+=(--overwrite); fi
     export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
@@ -91,7 +97,7 @@ done <<< "$available_simulations"
 [[ ${#selected_simulations[@]} -gt 0 ]] || { echo "No available model/experiment pairs match this selection" >&2; exit 2; }
 seen=" "
 for wave in "${wave_list[@]}"; do
-    case "$wave" in Kelvin|n1ERW|n0EIG|MRG) ;; *) echo "Unknown wave: $wave" >&2; exit 2 ;; esac
+    case "$wave" in Kelvin|n1ERW|n0EIG|MRG|n1WIG) ;; *) echo "Unknown wave: $wave" >&2; exit 2 ;; esac
     [[ "$seen" != *" $wave "* ]] || { echo "Duplicate wave: $wave" >&2; exit 2; }
     seen+="$wave "
 done
@@ -114,14 +120,14 @@ command=(
     "--array=0-$((task_count-1))%$MAX_CONCURRENT"
     "--chdir=$WORKFLOW_ROOT"
     "--output=$LOGDIR/CMIP6_rlut.%A_%a.log" "--error=$LOGDIR/CMIP6_rlut.%A_%a.log"
-    "--export=ALL,WORKFLOW_ROOT=$WORKFLOW_ROOT,PYTHON_BIN=$PYTHON_BIN,TASKLIST=$TASKLIST,START_YEAR=$START_YEAR,END_YEAR=$END_YEAR,MAX_EVENTS=$MAX_EVENTS,OVERWRITE=$OVERWRITE,DRY_RUN=0"
+    "--export=ALL,WORKFLOW_ROOT=$WORKFLOW_ROOT,PYTHON_BIN=$PYTHON_BIN,TASKLIST=$TASKLIST,START_YEAR=$START_YEAR,END_YEAR=$END_YEAR,DETECTION_SIGMA=$DETECTION_SIGMA,FIT_SUPPORT=$FIT_SUPPORT,MAX_EVENTS=$MAX_EVENTS,OVERWRITE=$OVERWRITE,DRY_RUN=0"
     "$SELF"
 )
 
 echo "Models selected: $MODELS"
 echo "Experiments: $EXPERIMENTS; available simulation pairs selected=${#selected_simulations[@]}"
 echo "Waves: $WAVES; tasks=$task_count; maximum concurrent=$MAX_CONCURRENT"
-echo "Native-calendar years: $START_YEAR through $END_YEAR; pilot limit: ${MAX_EVENTS:-none} events/task"
+echo "Native-calendar years: $START_YEAR through $END_YEAR; activity cutoff: ${DETECTION_SIGMA} sigma; fit support: $FIT_SUPPORT; pilot limit: ${MAX_EVENTS:-none} events/task"
 echo "Resources/task: partition=$PARTITION account=$ACCOUNT mem=$JOB_MEM cpus=$JOB_CPUS time=$JOB_TIME"
 if [[ "$DRY_RUN" == 1 ]]; then
     echo "Dry run: no task list, logs, jobs, or catalogs are created."

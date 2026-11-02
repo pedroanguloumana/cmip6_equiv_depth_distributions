@@ -1,0 +1,927 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "batch": "20261030T104134Z_pre_box_profiles",
+  "host": "levante0.lvt.dkrz.de",
+  "machine": "levante",
+  "root": "/home/b/b382284/Projects/cmip6_equiv_depth_distributions",
+  "started_utc": "2026-10-30T10:46:46.414674+00:00",
+  "queue_before": "",
+  "moves": [
+    {
+      "source": "data/archive/catalog-audit-2026-10-27",
+      "destination": "archived/catalog-audit-2026-10-27",
+      "reason": "Consolidate the legacy data/archive tree into the canonical archive.",
+      "before": {
+        "files": 3773,
+        "directories": 11,
+        "bytes": 4765077,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 12987344596048375067,
+        "size": 4096,
+        "mtime_ns": 1793254823896572502
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 12987344596048375067,
+        "size": 4096,
+        "mtime_ns": 1793254823896572502
+      },
+      "after": {
+        "files": 3773,
+        "directories": 11,
+        "bytes": 4765077,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 1075034,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 8474143236469169416,
+        "size": 1075034,
+        "mtime_ns": 1793290570442853606
+      },
+      "status": "moved",
+      "sha256": "c06392cc80824dc534b898cf77cfa851904f22a5b1674731064c926374577ba9",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 8474143236469169416,
+        "size": 1075034,
+        "mtime_ns": 1793290570442853606
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 1075034,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv.parts",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.csv.parts",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 2704,
+        "directories": 1,
+        "bytes": 2077847,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 17220177409923672660,
+        "size": 4096,
+        "mtime_ns": 1793290568096403432
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 17220177409923672660,
+        "size": 4096,
+        "mtime_ns": 1793290568096403432
+      },
+      "after": {
+        "files": 2704,
+        "directories": 1,
+        "bytes": 2077847,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.json",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.Kelvin.19900101-20101231.k3to14_dk0p5.f0p0714286to0p4_nf17.tw10_lw90.ts5_ls45.4df169e3b2c5.json",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3994,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 4596630057209037068,
+        "size": 3994,
+        "mtime_ns": 1793290570448183545
+      },
+      "status": "moved",
+      "sha256": "60ab8c601dd612bd06cda9ebce2e04dd71bfe7ed6cce2a6b094c85ca62265538",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 4596630057209037068,
+        "size": 3994,
+        "mtime_ns": 1793290570448183545
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3994,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 770141,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 3284493204792541450,
+        "size": 770141,
+        "mtime_ns": 1793290435512949517
+      },
+      "status": "moved",
+      "sha256": "52df7db2967bdc48fc7edac69c44335700f58e1b76a0efd5d3270541ce8a7607",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 3284493204792541450,
+        "size": 770141,
+        "mtime_ns": 1793290435512949517
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 770141,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv.parts",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.csv.parts",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1945,
+        "directories": 1,
+        "bytes": 1491365,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 2108339704086112813,
+        "size": 4096,
+        "mtime_ns": 1793290433327507013
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 2108339704086112813,
+        "size": 4096,
+        "mtime_ns": 1793290433327507013
+      },
+      "after": {
+        "files": 1945,
+        "directories": 1,
+        "bytes": 1491365,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.json",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.MRG.19900101-20101231.k-10to-1_dk0p5.f0p1to0p4_nf17.tw10_lw90.ts5_ls45.3092a659cc54.json",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3872,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 9644884604144700096,
+        "size": 3872,
+        "mtime_ns": 1793290435517915574
+      },
+      "status": "moved",
+      "sha256": "a4ef9b64471ec3a8a590b1ee2ae0e5c506d322e8151abf1ee6ffc1c9c5932a5e",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 9644884604144700096,
+        "size": 3872,
+        "mtime_ns": 1793290435517915574
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3872,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 1302982,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 377208939464880646,
+        "size": 1302982,
+        "mtime_ns": 1793290750146853138
+      },
+      "status": "moved",
+      "sha256": "7097e3beeeea860da84e91e6038245a6d45aa6c09a8b7c02cf33f001559348a8",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 377208939464880646,
+        "size": 1302982,
+        "mtime_ns": 1793290750146853138
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 1302982,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv.parts",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.csv.parts",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 3287,
+        "directories": 1,
+        "bytes": 2522088,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 12715641965695478380,
+        "size": 4096,
+        "mtime_ns": 1793290747276807992
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 12715641965695478380,
+        "size": 4096,
+        "mtime_ns": 1793290747276807992
+      },
+      "after": {
+        "files": 3287,
+        "directories": 1,
+        "bytes": 2522088,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.json",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n0EIG.19900101-20101231.k1to14_dk0p5.f0p166667to0p4_nf17.tw10_lw90.ts5_ls45.dda94e549636.json",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3997,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 7846582138818024052,
+        "size": 3997,
+        "mtime_ns": 1793290750151748545
+      },
+      "status": "moved",
+      "sha256": "09fd422be115b456cce411ccdaa7d0bea0c63e608f4f182f7810f698b9f4f5f8",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 7846582138818024052,
+        "size": 3997,
+        "mtime_ns": 1793290750151748545
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 3997,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 413961,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 1643926466803542562,
+        "size": 413961,
+        "mtime_ns": 1793291709903228824
+      },
+      "status": "moved",
+      "sha256": "344c676cf312e30fb53fecd4e66e7d2af9fc1417351e794b196ad82570cd2423",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 1643926466803542562,
+        "size": 413961,
+        "mtime_ns": 1793291709903228824
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 413961,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv.parts",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.csv.parts",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1034,
+        "directories": 1,
+        "bytes": 797204,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 5358522269909837224,
+        "size": 4096,
+        "mtime_ns": 1793291708978690162
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 5358522269909837224,
+        "size": 4096,
+        "mtime_ns": 1793291708978690162
+      },
+      "after": {
+        "files": 1034,
+        "directories": 1,
+        "bytes": 797204,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.json",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa/NOAA_OLR.n1ERW.19900101-20101231.k-20to-1_dk0p5.f0p0111111to0p1_nf17.tw90_lw90.ts45_ls45.89bd7cd90f01.json",
+      "reason": "Superseded curved-filter NOAA catalog, provenance or event checkpoints.",
+      "before": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 4261,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 16202577350621222942,
+        "size": 4261,
+        "mtime_ns": 1793291709907887237
+      },
+      "status": "moved",
+      "sha256": "db68e1be04af0a04be38df614e7b095e06763f75cfb6b044757189efa314e885",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 16202577350621222942,
+        "size": 4261,
+        "mtime_ns": 1793291709907887237
+      },
+      "after": {
+        "files": 1,
+        "directories": 0,
+        "bytes": 4261,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/cmip6_event_catalogs",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/cmip6_event_catalogs",
+      "reason": "Superseded curved-filter CMIP catalogs or their NOAA/CMIP job records.",
+      "before": {
+        "files": 271146,
+        "directories": 132,
+        "bytes": 366049647,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 4402327246297087178,
+        "size": 4096,
+        "mtime_ns": 1793356298453807550
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 4402327246297087178,
+        "size": 4096,
+        "mtime_ns": 1793356298453807550
+      },
+      "after": {
+        "files": 271146,
+        "directories": 132,
+        "bytes": 366049647,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/cmip6_event_jobs",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/cmip6_event_jobs",
+      "reason": "Superseded curved-filter CMIP catalogs or their NOAA/CMIP job records.",
+      "before": {
+        "files": 148,
+        "directories": 7,
+        "bytes": 831176,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 927841636099340837,
+        "size": 4096,
+        "mtime_ns": 1793329593583296338
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 927841636099340837,
+        "size": 4096,
+        "mtime_ns": 1793329593583296338
+      },
+      "after": {
+        "files": 148,
+        "directories": 7,
+        "bytes": 831176,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/noaa_olr_event_jobs",
+      "destination": "archived/event_catalogs/20261030T104134Z_pre_box_profiles/noaa_olr_event_jobs",
+      "reason": "Superseded curved-filter CMIP catalogs or their NOAA/CMIP job records.",
+      "before": {
+        "files": 12,
+        "directories": 4,
+        "bytes": 37514,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 18282416522690251770,
+        "size": 4096,
+        "mtime_ns": 1793289778001506370
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 18282416522690251770,
+        "size": 4096,
+        "mtime_ns": 1793289778001506370
+      },
+      "after": {
+        "files": 12,
+        "directories": 4,
+        "bytes": 37514,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/wave_significance",
+      "destination": "archived/wave_significance/20261030T104134Z_pre_box_profiles",
+      "reason": "Pilot diagnostics and interrupted/planned calibrations for the superseded filter settings.",
+      "before": {
+        "files": 333,
+        "directories": 17,
+        "bytes": 814889296,
+        "symlinks": 0
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 15431226958066412384,
+        "size": 4096,
+        "mtime_ns": 1793348462755882796
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 15431226958066412384,
+        "size": 4096,
+        "mtime_ns": 1793348462755882796
+      },
+      "after": {
+        "files": 333,
+        "directories": 17,
+        "bytes": 814889296,
+        "symlinks": 0
+      },
+      "verified": true
+    },
+    {
+      "source": "data/cmip6_rlut",
+      "destination": "archived/data_links/cmip6_rlut",
+      "reason": "Warehouse the legacy 2000-2010 IMERG-grid input pointer; do not move its external target.",
+      "before": {
+        "files": 0,
+        "directories": 0,
+        "bytes": 0,
+        "symlinks": 1
+      },
+      "identity_before": {
+        "present": true,
+        "device": 43,
+        "inode": 10302042548449685898,
+        "size": 72,
+        "mtime_ns": 1793297472580393309,
+        "target": "/home/b/b382284/work/cmip6/historical/day/rlut/imerg_1deg_trop_regridded",
+        "resolved": "/work/bb1153/b382284/cmip6/historical/day/rlut/imerg_1deg_trop_regridded",
+        "target_exists": true
+      },
+      "status": "moved",
+      "identity_after": {
+        "present": true,
+        "device": 43,
+        "inode": 10302042548449685898,
+        "size": 72,
+        "mtime_ns": 1793297472580393309,
+        "target": "/home/b/b382284/work/cmip6/historical/day/rlut/imerg_1deg_trop_regridded",
+        "resolved": "/work/bb1153/b382284/cmip6/historical/day/rlut/imerg_1deg_trop_regridded",
+        "target_exists": true
+      },
+      "after": {
+        "files": 0,
+        "directories": 0,
+        "bytes": 0,
+        "symlinks": 1
+      },
+      "verified": true
+    }
+  ],
+  "skipped": [],
+  "kept_inputs_before": {
+    "data/archived": {
+      "present": true,
+      "device": 43,
+      "inode": 7306271652856288850,
+      "size": 11,
+      "mtime_ns": 1793328937476635003,
+      "target": "../archived",
+      "resolved": "/home/b/b382284/Projects/cmip6_equiv_depth_distributions/archived",
+      "target_exists": true
+    },
+    "data/noaa_olr": {
+      "present": true,
+      "device": 43,
+      "inode": 15967547185914159198,
+      "size": 33,
+      "mtime_ns": 1793260674824092410,
+      "target": "/work/bb1153/b382284/OBS/NOAA_OLR",
+      "resolved": "/work/bb1153/b382284/OBS/NOAA_OLR",
+      "target_exists": true
+    },
+    "data/cmip6": {
+      "present": true,
+      "device": 43,
+      "inode": 7737283390232166936,
+      "size": 29,
+      "mtime_ns": 1793104417907094546,
+      "target": "/work/ik1017/CMIP6/data/CMIP6",
+      "resolved": "/work/ik1017/CMIP6/data/CMIP6",
+      "target_exists": true
+    },
+    "data/catalogs": {
+      "present": true,
+      "device": 43,
+      "inode": 7676575127460471883,
+      "size": 19,
+      "mtime_ns": 1793104417903975996,
+      "target": "/pool/data/Catalogs",
+      "resolved": "/pool/data/Catalogs",
+      "target_exists": true
+    },
+    "data/cmip6_rlut_noaa1deg": {
+      "present": true,
+      "device": 43,
+      "inode": 17300493778680853731,
+      "size": 38,
+      "mtime_ns": 1793321266165318639,
+      "target": "/scratch/b/b382284/cmip6_rlut_noaa1deg",
+      "resolved": "/scratch/b/b382284/cmip6_rlut_noaa1deg",
+      "target_exists": true
+    },
+    "data/cmip6_catalog.parquet": {
+      "present": true,
+      "device": 43,
+      "inode": 15197641770961415826,
+      "size": 101160543,
+      "mtime_ns": 1793103603957128536
+    },
+    "data/cmip6_headers.parquet": {
+      "present": true,
+      "device": 43,
+      "inode": 14016426976127179341,
+      "size": 129444,
+      "mtime_ns": 1793254708492124136
+    },
+    "data/cmip6_regrid_jobs": {
+      "present": true,
+      "device": 43,
+      "inode": 9566371983635880917,
+      "size": 4096,
+      "mtime_ns": 1793323876851104370
+    }
+  },
+  "model_files_before": {
+    "historical": [
+      "rlut.day.ACCESS-CM2.historical.r1i1p1f1.gn.v20191108.noaa_1deg.1990-2010.nc",
+      "rlut.day.ACCESS-ESM1-5.historical.r1i1p1f1.gn.v20191115.noaa_1deg.1990-2010.nc",
+      "rlut.day.AWI-ESM-1-1-LR.historical.r1i1p1f1.gn.v20200212.noaa_1deg.1990-2010.nc",
+      "rlut.day.AWI-ESM-1-REcoM.historical.r1i1p1f1.gn.v20230314.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-CSM2-MR.historical.r2i1p1f1.gn.v20181116.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-ESM1.historical.r1i1p1f1.gn.v20181220.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-FV2.historical.r1i1p1f1.gn.v20191120.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM-FV2.historical.r1i1p1f1.gn.v20191120.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM.historical.r1i1p1f1.gn.v20190227.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2.historical.r1i1p1f1.gn.v20190308.noaa_1deg.1990-2010.nc",
+      "rlut.day.CMCC-CM2-SR5.historical.r1i1p1f1.gn.v20200616.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1-HR.historical.r1i1p1f2.gr.v20191021.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1.historical.r1i1p1f2.gr.v20180917.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-ESM2-1.historical.r1i1p1f2.gr.v20181206.noaa_1deg.1990-2010.nc",
+      "rlut.day.CanESM5.historical.r1i1p1f1.gn.v20190429.noaa_1deg.1990-2010.nc",
+      "rlut.day.FGOALS-g3.historical.r1i1p1f1.gn.v20190826.noaa_1deg.1990-2010.nc",
+      "rlut.day.GFDL-CM4.historical.r1i1p1f1.gr1.v20180701.noaa_1deg.1990-2010.nc",
+      "rlut.day.GISS-E2-1-G.historical.r1i1p1f1.gn.v20181015.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-LL.historical.r1i1p1f3.gn.v20190624.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-MM.historical.r1i1p1f3.gn.v20191207.noaa_1deg.1990-2010.nc",
+      "rlut.day.ICON-ESM-LR.historical.r1i1p1f1.gn.v20210215.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM4-8.historical.r1i1p1f1.gr1.v20190530.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM5-0.historical.r1i1p1f1.gr1.v20190610.noaa_1deg.1990-2010.nc",
+      "rlut.day.IPSL-CM6A-LR.historical.r1i1p1f1.gr.v20180803.noaa_1deg.1990-2010.nc",
+      "rlut.day.KACE-1-0-G.historical.r1i1p1f1.gr.v20190911.noaa_1deg.1990-2010.nc",
+      "rlut.day.MIROC6.historical.r1i1p1f1.gn.v20191016.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM-1-2-HAM.historical.r1i1p1f1.gn.v20190627.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-HR.historical.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-LR.historical.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MRI-ESM2-0.historical.r1i1p1f1.gn.v20190603.noaa_1deg.1990-2010.nc",
+      "rlut.day.NESM3.historical.r1i1p1f1.gn.v20190812.noaa_1deg.1990-2010.nc",
+      "rlut.day.SAM0-UNICON.historical.r1i1p1f1.gn.v20190323.noaa_1deg.1990-2010.nc",
+      "rlut.day.TaiESM1.historical.r1i1p1f1.gn.v20200626.noaa_1deg.1990-2010.nc",
+      "rlut.day.UKESM1-0-LL.historical.r1i1p1f2.gn.v20190627.noaa_1deg.1990-2010.nc"
+    ],
+    "amip": [
+      "rlut.day.ACCESS-CM2.amip.r1i1p1f1.gn.v20191108.noaa_1deg.1990-2010.nc",
+      "rlut.day.ACCESS-ESM1-5.amip.r1i1p1f1.gn.v20191114.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-CSM2-MR.amip.r1i1p1f1.gn.v20200721.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-FV2.amip.r1i1p1f1.gn.v20200305.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM-FV2.amip.r1i1p1f1.gn.v20200305.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM.amip.r1i1p1f1.gn.v20190220.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2.amip.r1i1p1f1.gn.v20190218.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1-HR.amip.r1i1p1f2.gr.v20191202.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1.amip.r1i1p1f2.gr.v20181203.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-ESM2-1.amip.r1i1p1f2.gr.v20181205.noaa_1deg.1990-2010.nc",
+      "rlut.day.CanESM5.amip.r1i1p1f1.gn.v20190429.noaa_1deg.1990-2010.nc",
+      "rlut.day.GFDL-CM4.amip.r1i1p1f1.gr1.v20180701.noaa_1deg.1990-2010.nc",
+      "rlut.day.GISS-E2-1-G.amip.r1i1p1f1.gn.v20200102.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-LL.amip.r1i1p1f3.gn.v20190617.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-MM.amip.r2i1p1f3.gn.v20190911.noaa_1deg.1990-2010.nc",
+      "rlut.day.ICON-ESM-LR.amip.r1i1p1f1.gn.v20220215.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM4-8.amip.r1i1p1f1.gr1.v20190528.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM5-0.amip.r1i1p1f1.gr1.v20190610.noaa_1deg.1990-2010.nc",
+      "rlut.day.IPSL-CM6A-LR.amip.r1i1p1f1.gr.v20181109.noaa_1deg.1990-2010.nc",
+      "rlut.day.MIROC6.amip.r1i1p1f1.gn.v20191016.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM-1-2-HAM.amip.r1i1p1f1.gn.v20190628.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-HR.amip.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-LR.amip.r1i1p1f1.gn.v20190815.noaa_1deg.1990-2010.nc",
+      "rlut.day.MRI-ESM2-0.amip.r1i1p1f1.gn.v20190603.noaa_1deg.1990-2010.nc",
+      "rlut.day.SAM0-UNICON.amip.r1i1p1f1.gn.v20190323.noaa_1deg.1990-2010.nc"
+    ]
+  },
+  "interpretation": "Superseded curved-filter outputs, partial runs and historical audit records; payloads preserved by same-filesystem rename.",
+  "payload_deletions": false,
+  "snapshot": "archived/cleanup_snapshots/20261030T104134Z_pre_box_profiles/levante",
+  "kept_inputs_after": {
+    "data/archived": {
+      "present": true,
+      "device": 43,
+      "inode": 7306271652856288850,
+      "size": 11,
+      "mtime_ns": 1793328937476635003,
+      "target": "../archived",
+      "resolved": "/home/b/b382284/Projects/cmip6_equiv_depth_distributions/archived",
+      "target_exists": true
+    },
+    "data/noaa_olr": {
+      "present": true,
+      "device": 43,
+      "inode": 15967547185914159198,
+      "size": 33,
+      "mtime_ns": 1793260674824092410,
+      "target": "/work/bb1153/b382284/OBS/NOAA_OLR",
+      "resolved": "/work/bb1153/b382284/OBS/NOAA_OLR",
+      "target_exists": true
+    },
+    "data/cmip6": {
+      "present": true,
+      "device": 43,
+      "inode": 7737283390232166936,
+      "size": 29,
+      "mtime_ns": 1793104417907094546,
+      "target": "/work/ik1017/CMIP6/data/CMIP6",
+      "resolved": "/work/ik1017/CMIP6/data/CMIP6",
+      "target_exists": true
+    },
+    "data/catalogs": {
+      "present": true,
+      "device": 43,
+      "inode": 7676575127460471883,
+      "size": 19,
+      "mtime_ns": 1793104417903975996,
+      "target": "/pool/data/Catalogs",
+      "resolved": "/pool/data/Catalogs",
+      "target_exists": true
+    },
+    "data/cmip6_rlut_noaa1deg": {
+      "present": true,
+      "device": 43,
+      "inode": 17300493778680853731,
+      "size": 38,
+      "mtime_ns": 1793321266165318639,
+      "target": "/scratch/b/b382284/cmip6_rlut_noaa1deg",
+      "resolved": "/scratch/b/b382284/cmip6_rlut_noaa1deg",
+      "target_exists": true
+    },
+    "data/cmip6_catalog.parquet": {
+      "present": true,
+      "device": 43,
+      "inode": 15197641770961415826,
+      "size": 101160543,
+      "mtime_ns": 1793103603957128536
+    },
+    "data/cmip6_headers.parquet": {
+      "present": true,
+      "device": 43,
+      "inode": 14016426976127179341,
+      "size": 129444,
+      "mtime_ns": 1793254708492124136
+    },
+    "data/cmip6_regrid_jobs": {
+      "present": true,
+      "device": 43,
+      "inode": 9566371983635880917,
+      "size": 4096,
+      "mtime_ns": 1793323876851104370
+    }
+  },
+  "model_files_after": {
+    "historical": [
+      "rlut.day.ACCESS-CM2.historical.r1i1p1f1.gn.v20191108.noaa_1deg.1990-2010.nc",
+      "rlut.day.ACCESS-ESM1-5.historical.r1i1p1f1.gn.v20191115.noaa_1deg.1990-2010.nc",
+      "rlut.day.AWI-ESM-1-1-LR.historical.r1i1p1f1.gn.v20200212.noaa_1deg.1990-2010.nc",
+      "rlut.day.AWI-ESM-1-REcoM.historical.r1i1p1f1.gn.v20230314.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-CSM2-MR.historical.r2i1p1f1.gn.v20181116.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-ESM1.historical.r1i1p1f1.gn.v20181220.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-FV2.historical.r1i1p1f1.gn.v20191120.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM-FV2.historical.r1i1p1f1.gn.v20191120.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM.historical.r1i1p1f1.gn.v20190227.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2.historical.r1i1p1f1.gn.v20190308.noaa_1deg.1990-2010.nc",
+      "rlut.day.CMCC-CM2-SR5.historical.r1i1p1f1.gn.v20200616.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1-HR.historical.r1i1p1f2.gr.v20191021.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1.historical.r1i1p1f2.gr.v20180917.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-ESM2-1.historical.r1i1p1f2.gr.v20181206.noaa_1deg.1990-2010.nc",
+      "rlut.day.CanESM5.historical.r1i1p1f1.gn.v20190429.noaa_1deg.1990-2010.nc",
+      "rlut.day.FGOALS-g3.historical.r1i1p1f1.gn.v20190826.noaa_1deg.1990-2010.nc",
+      "rlut.day.GFDL-CM4.historical.r1i1p1f1.gr1.v20180701.noaa_1deg.1990-2010.nc",
+      "rlut.day.GISS-E2-1-G.historical.r1i1p1f1.gn.v20181015.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-LL.historical.r1i1p1f3.gn.v20190624.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-MM.historical.r1i1p1f3.gn.v20191207.noaa_1deg.1990-2010.nc",
+      "rlut.day.ICON-ESM-LR.historical.r1i1p1f1.gn.v20210215.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM4-8.historical.r1i1p1f1.gr1.v20190530.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM5-0.historical.r1i1p1f1.gr1.v20190610.noaa_1deg.1990-2010.nc",
+      "rlut.day.IPSL-CM6A-LR.historical.r1i1p1f1.gr.v20180803.noaa_1deg.1990-2010.nc",
+      "rlut.day.KACE-1-0-G.historical.r1i1p1f1.gr.v20190911.noaa_1deg.1990-2010.nc",
+      "rlut.day.MIROC6.historical.r1i1p1f1.gn.v20191016.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM-1-2-HAM.historical.r1i1p1f1.gn.v20190627.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-HR.historical.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-LR.historical.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MRI-ESM2-0.historical.r1i1p1f1.gn.v20190603.noaa_1deg.1990-2010.nc",
+      "rlut.day.NESM3.historical.r1i1p1f1.gn.v20190812.noaa_1deg.1990-2010.nc",
+      "rlut.day.SAM0-UNICON.historical.r1i1p1f1.gn.v20190323.noaa_1deg.1990-2010.nc",
+      "rlut.day.TaiESM1.historical.r1i1p1f1.gn.v20200626.noaa_1deg.1990-2010.nc",
+      "rlut.day.UKESM1-0-LL.historical.r1i1p1f2.gn.v20190627.noaa_1deg.1990-2010.nc"
+    ],
+    "amip": [
+      "rlut.day.ACCESS-CM2.amip.r1i1p1f1.gn.v20191108.noaa_1deg.1990-2010.nc",
+      "rlut.day.ACCESS-ESM1-5.amip.r1i1p1f1.gn.v20191114.noaa_1deg.1990-2010.nc",
+      "rlut.day.BCC-CSM2-MR.amip.r1i1p1f1.gn.v20200721.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-FV2.amip.r1i1p1f1.gn.v20200305.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM-FV2.amip.r1i1p1f1.gn.v20200305.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2-WACCM.amip.r1i1p1f1.gn.v20190220.noaa_1deg.1990-2010.nc",
+      "rlut.day.CESM2.amip.r1i1p1f1.gn.v20190218.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1-HR.amip.r1i1p1f2.gr.v20191202.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-CM6-1.amip.r1i1p1f2.gr.v20181203.noaa_1deg.1990-2010.nc",
+      "rlut.day.CNRM-ESM2-1.amip.r1i1p1f2.gr.v20181205.noaa_1deg.1990-2010.nc",
+      "rlut.day.CanESM5.amip.r1i1p1f1.gn.v20190429.noaa_1deg.1990-2010.nc",
+      "rlut.day.GFDL-CM4.amip.r1i1p1f1.gr1.v20180701.noaa_1deg.1990-2010.nc",
+      "rlut.day.GISS-E2-1-G.amip.r1i1p1f1.gn.v20200102.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-LL.amip.r1i1p1f3.gn.v20190617.noaa_1deg.1990-2010.nc",
+      "rlut.day.HadGEM3-GC31-MM.amip.r2i1p1f3.gn.v20190911.noaa_1deg.1990-2010.nc",
+      "rlut.day.ICON-ESM-LR.amip.r1i1p1f1.gn.v20220215.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM4-8.amip.r1i1p1f1.gr1.v20190528.noaa_1deg.1990-2010.nc",
+      "rlut.day.INM-CM5-0.amip.r1i1p1f1.gr1.v20190610.noaa_1deg.1990-2010.nc",
+      "rlut.day.IPSL-CM6A-LR.amip.r1i1p1f1.gr.v20181109.noaa_1deg.1990-2010.nc",
+      "rlut.day.MIROC6.amip.r1i1p1f1.gn.v20191016.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM-1-2-HAM.amip.r1i1p1f1.gn.v20190628.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-HR.amip.r1i1p1f1.gn.v20190710.noaa_1deg.1990-2010.nc",
+      "rlut.day.MPI-ESM1-2-LR.amip.r1i1p1f1.gn.v20190815.noaa_1deg.1990-2010.nc",
+      "rlut.day.MRI-ESM2-0.amip.r1i1p1f1.gn.v20190603.noaa_1deg.1990-2010.nc",
+      "rlut.day.SAM0-UNICON.amip.r1i1p1f1.gn.v20190323.noaa_1deg.1990-2010.nc"
+    ]
+  },
+  "catalog_counts": {
+    "noaa_complete": 4,
+    "cmip_complete": 127,
+    "cmip_partial": 4
+  },
+  "completed_utc": "2026-10-30T10:47:54.860639+00:00",
+  "recreated_empty_outputs": [
+    "data/cmip6_event_catalogs",
+    "data/cmip6_event_jobs",
+    "data/noaa_olr_event_jobs",
+    "data/wave_significance"
+  ],
+  "documents": [
+    ".gitignore",
+    "README.md",
+    "data/README.md",
+    "docs/catalog_workflow.md",
+    "docs/cmip6_header_check.md",
+    "scripts/README.md",
+    "notebooks/README.md",
+    "src/paths.py",
+    "archived/README.md"
+  ],
+  "totals": {
+    "files": 284390,
+    "bytes": 1197039456
+  }
+}

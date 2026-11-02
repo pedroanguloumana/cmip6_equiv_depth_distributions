@@ -87,13 +87,13 @@ audit. See [the workflow guide](catalog_workflow.md).
 
 - `data/cmip6_catalog.parquet`: the existing complete catalog, renamed without duplication.
 - `data/cmip6_headers.parquet`: 17,325 file rows with saved coordinate evidence from 2,990 exact datasets.
-- [Original report](../data/archive/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/report.json).
-- [Machine-readable findings](../data/archive/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/header_check_findings.json).
-- [Original executed notebook](../data/archive/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/Explore_Catalog.executed.ipynb).
-- [Simplification comparison](../data/archive/catalog-audit-2026-10-27/simplification_comparison.json).
+- [Original report](../archived/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/report.json).
+- [Machine-readable findings](../archived/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/header_check_findings.json).
+- [Original executed notebook](../archived/catalog-audit-2026-10-27/catalog_runs/20261027T133421Z/Explore_Catalog.executed.ipynb).
+- [Simplification comparison](../archived/catalog-audit-2026-10-27/simplification_comparison.json).
 
 The old subset caches, individual header JSON files, batch runner, logs and notebook
-backups are retained under `data/archive/catalog-audit-2026-10-27/`. They are historical
+backups are retained under `archived/catalog-audit-2026-10-27/`. They are historical
 records, not dependencies of the active notebook. Paths inside the original JSON
 reports describe the layout at that earlier run; the links above locate them now.
 

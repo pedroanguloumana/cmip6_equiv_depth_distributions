@@ -28,6 +28,10 @@ def main():
     parser.add_argument("--wave", choices=tuple(WAVE_PROFILES))
     parser.add_argument("--start-year", type=int, default=1990, help="Inclusive first complete native-calendar year")
     parser.add_argument("--end-year", type=int, default=2010, help="Inclusive last complete native-calendar year")
+    parser.add_argument("--detection-sigma", type=float, choices=(1.0, 1.5, 2.0), default=1.5,
+                        help="Envelope activity cutoff in signed-field standard deviations")
+    parser.add_argument("--fit-support", choices=("window", "component"), default="window",
+                        help="Fit the fixed weighted window or active envelope component pixels")
     parser.add_argument("--max-events", type=int, help="Pilot: fit only the first N candidates")
     parser.add_argument("--overwrite", action="store_true", help="Recompute this exact catalog and its checkpoints")
     args = parser.parse_args()
@@ -65,7 +69,8 @@ def main():
     configuration = make_catalog_configuration(
         dataset_id, args.wave, start, end, identity=identity, input_paths=[info["path"], provenance],
         code_paths={"worker": Path(__file__), "cmip_loader": Path(cmip.__file__)},
-        max_events=args.max_events,
+        max_events=args.max_events, detection_sigma=args.detection_sigma,
+        fit_support=args.fit_support,
     )
     print(f"Model={args.model} experiment={args.experiment} member={info['member_id']} calendar={info['calendar']} "
           f"source_grid={info['source_grid_label']} analysis_grid={info['analysis_grid']}", flush=True)
