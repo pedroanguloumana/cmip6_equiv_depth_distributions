@@ -129,3 +129,27 @@ signed OLR with fitted negative-OLR crests inside that component. The cached
 the archive record is needed only for preparation. No catalog refitting or
 background calculation is performed. Carrier-phase propagation, rather than
 the envelope boundary's motion, supplies the implied depth.
+
+## Remake the older distribution notebooks
+
+`remake_distributions.py` uses the audited 2-sigma catalogs to produce the old
+notebooks' 1 m linear and 50-bin logarithmic distributions. It also replays raw
+NOAA/CMIP6 OLR through the exact catalog filter and detector to recompute energy
+on the new event footprints. Existing observed spectral powers are independent
+of the event threshold and are reused. Gaussian comparisons remain deferred.
+
+Run workers on Levante in compute allocations, with the project installed:
+
+```bash
+python -m scripts.codex_sigma2_events.remake_distributions --task-index 0
+# Repeat for the 60 distinct records (indices 0..59), then:
+python -m scripts.codex_sigma2_events.remake_distributions --summarize
+```
+
+Each worker needs the same memory allowance as the event-catalog workers
+(14 GiB used for pilots). Cohort order is the distinct model/experiment/member
+order in the 2-sigma rows of `data/event_threshold_comparison/catalog_summary.csv`.
+Outputs and complete provenance receipts go to its `distributions_sigma2/`
+subdirectory, preserving all 1.5-sigma products. The summary refuses incomplete
+records and verifies counts, histogram closure and event-energy bounds before
+writing the six notebook input tables and `audit.json`.

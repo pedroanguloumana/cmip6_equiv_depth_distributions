@@ -101,9 +101,9 @@ def preprocessed_anomaly(field):
     )
 
 
-def event_energy_rows(field, wave, catalog, denominator, identity):
-    """Bin disjoint active-component energy by each saved fitted depth."""
-    detected, _, support = events.detect_events(field, detection_sigma=1.5,
+def event_energy_rows(field, wave, catalog, denominator, identity, *, detection_sigma=1.5):
+    """Bin active-component energy; detection_sigma must match the saved catalog."""
+    detected, _, support = events.detect_events(field, detection_sigma=detection_sigma,
                                                  return_support=True)
     if {event["event_id"] for event in detected} != set(catalog.index):
         raise RuntimeError(f"Detected event IDs differ from fitted catalog: {identity}/{wave}")
