@@ -153,3 +153,16 @@ Outputs and complete provenance receipts go to its `distributions_sigma2/`
 subdirectory, preserving all 1.5-sigma products. The summary refuses incomplete
 records and verifies counts, histogram closure and event-energy bounds before
 writing the six notebook input tables and `audit.json`.
+
+After successful pilots at indices 0 (NOAA), 2 (ACCESS-CM2 Historical) and 32
+(HadGEM3-GC31-LL AMIP, 360-day calendar), submit the two pooled replay jobs and
+their dependent audit with:
+
+```bash
+python -m scripts.codex_sigma2_events.submit_distribution_remake
+```
+
+Each shard runs up to 12 workers with 48 CPUs and 170 GiB for one hour. Complete
+pilot outputs are reused. Submission IDs and per-record logs are retained under
+`data/cmip6_event_jobs/sigma2_component/distribution_remake/`; a submission
+receipt prevents accidental duplicate launches.
