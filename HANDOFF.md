@@ -1,5 +1,62 @@
 # Codex handoff — 2026-11-03
 
+## Remake the older distribution notebooks with 2-sigma events — 2026-11-03
+
+The user requested that the older distribution notebooks use the completed
+2-sigma catalogs, and an all-wave single-panel overlay near the top of the
+NOAA notebook. Scope is `codex_heff_distribution_noaa.ipynb`,
+`codex_heff_comparison_cmip6.ipynb` and `Compare_heff.ipynb`. The WK-segment
+method does not use an event threshold. Gaussian comparisons remain deferred.
+Original notebook copies are preserved on both machines in
+`data/event_threshold_comparison/notebooks_sigma15_cb7a3c9/` and in Git.
+
+The remade notebooks are complete with verified 2-sigma inputs and outputs.
+The NOAA notebook has a top all-wave histogram with an explicit screened/relaxed
+selector; all five curves use the corresponding 2-sigma event populations.
+The comparison draft's undefined variables/unfinished cell were replaced with
+an explicit 2-sigma audit-index/table selection, retaining NOAA and ACCESS-CM2
+Historical as its chosen sources. No catalog loader/source hashes were changed.
+
+`scripts/codex_sigma2_events/remake_distributions.py` replays raw data for all
+60 source records and five waves, checks exact saved 2-sigma IDs/peaks, and
+computes 1 m/log depth counts plus new component-footprint/fitted energies.
+The old reusable energy helper now accepts an explicit threshold; its default
+remains 1.5 for reproduction. Observed spectral-power tables are threshold-
+independent and reused without any background comparison or computation.
+
+Pilots `28679407_0/2/32` (NOAA, ACCESS-CM2 Historical, HadGEM3-GC31-LL AMIP
+with a 360-day calendar) completed all five waves each, exit 0, in about four
+minutes with 14 GiB allocations. Code commits `850b372` and `814d03e` are
+pushed and deployed. Full replay array `28679573` used two 30-record shards,
+12 workers per shard (48 CPUs/170 GiB/1 h); completed pilots are reused. Audit
+`28679575` completed after both shards. The shards finished in 12m34s/12m23s,
+and the audit in 5 seconds, all exit 0. All 60 record replays / 300 catalogs
+passed source, exact detection, count, histogram-closure and energy-bound checks.
+Submission receipts and per-record logs are in
+`data/cmip6_event_jobs/sigma2_component/distribution_remake/`. Do not rerun this
+completed calculation. Outputs are under
+`data/event_threshold_comparison/distributions_sigma2/`: 600 count rows,
+600 energy rows, plus the reused actual-data spectra (295 model and 5 NOAA rows).
+The six summary CSVs and audit were copied locally and their SHA256s match.
+
+All three notebooks ran in fresh local kernels: NOAA 18 cells / 26 figures,
+CMIP6 18 cells / 35 figures, Compare 7 cells / 10 figures, zero errors. Visual
+checks covered the NOAA all-wave overlay, count/energy/tail panels, model spread,
+observed spectral power and the selected-source comparison. Verified outputs
+were promoted to the canonical notebooks; executed artifacts are also retained
+locally as `distributions_sigma2/<notebook>.sigma2.executed.ipynb`. The helper
+`/private/tmp/render_remade_distribution_notebooks.py` records this execution.
+
+For screened 12--50 m footprints, NOAA's energy share of total projected OLR
+energy is 2.173% Kelvin versus Historical/AMIP model medians 0.866/0.888%,
+0.253% EIG versus 0.0148/0.0123%, and 0.0523% WIG versus 0.0026/0.0027%.
+These remain conditional descriptive diagnostics; no Gaussian comparison or
+statistical significance claim was added. Spectral powers do not depend on the
+event threshold and are labeled separately in the remade notebooks.
+
+Levante has an unrelated user edit in `notebooks/Wheeler-Kiladis_Spectra.ipynb`.
+Preserve it; no resets, stashes, commits or overwrites of that file are needed.
+
 ## Two-sigma event envelopes and event-implied depths — 2026-11-02
 
 The user requested new NOAA and CMIP6 event catalogs with a 2-sigma envelope

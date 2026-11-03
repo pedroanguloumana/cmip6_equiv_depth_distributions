@@ -166,3 +166,22 @@ Each shard runs up to 12 workers with 48 CPUs and 170 GiB for one hour. Complete
 pilot outputs are reused. Submission IDs and per-record logs are retained under
 `data/cmip6_event_jobs/sigma2_component/distribution_remake/`; a submission
 receipt prevents accidental duplicate launches.
+
+The 2026-11-03 remake is complete: pilot array `28679407`, full replay array
+`28679573` and audit `28679575` all passed. All six compact input tables and
+the audit are available on Levante and locally, with matching SHA256 hashes.
+The following canonical notebooks now explicitly require the 2-sigma audit and
+retain fresh-kernel rendered outputs:
+
+- `notebooks/codex_heff_distribution_noaa.ipynb`: 26 figures, including a
+  single-panel all-wave overview near the top. `OVERVIEW_SELECTION` chooses
+  the existing screened subset or all valid-depth fits.
+- `notebooks/codex_heff_comparison_cmip6.ipynb`: 35 count, individual-model,
+  event-energy and threshold-independent observed-power figures.
+- `notebooks/Compare_heff.ipynb`: 10 figures for the explicitly selected NOAA
+  and ACCESS-CM2 Historical records; exact 2-sigma catalog run IDs are displayed.
+
+The three original notebook versions are preserved in Git and in
+`data/event_threshold_comparison/notebooks_sigma15_cb7a3c9/` on both machines.
+Gaussian comparisons are omitted from the remake rather than mixing 2-sigma
+observed events with 1.5-sigma nulls. No new null ensembles were calculated.
