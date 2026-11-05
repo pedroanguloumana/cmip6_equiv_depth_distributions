@@ -56,8 +56,34 @@ errors. Both figures were visually checked; verified rendered outputs are
 retained in the canonical notebook and in the ignored executed artifact under
 `data/olr_wave_regression/`. Grid validation allows only the observed sub-2e-6
 degree latitude roundoff in model coordinates, with no interpolation.
-Existing local NOAA-distribution and remote Compare/WK notebook edits are
-unrelated and must remain untouched.
+
+Completion and continuation:
+
+- The scientific workflow and rendered notebook were committed, pushed and
+  synchronized to Levante at `b56c9c4`. Both focused tests also passed in the
+  Levante analysis environment after the final pull. Run them from the project
+  root with `python -m unittest discover -s tests -p test_wave_regression.py -q`.
+- The verified notebook SHA256, identical locally and on Levante, is
+  `2990ac497036965d260cba07c97d774b190e6d87c04b4830d7e32a8621dcbb7c`.
+  All requested calculations and figures are complete. Replot from the three
+  existing compact products; do not resubmit the completed arrays or repeat
+  archive filtering merely to change a plot. Workers intentionally refuse to
+  overwrite existing products.
+- For local execution use `/Users/pedro/miniconda3/envs/ccew/bin/python`;
+  Levante's environment is `~/.conda/envs/cmip6_equiv_depth_distributions`.
+  The local default `python3` Jupyter kernelspec points to an older environment;
+  explicitly select the ccew kernel/interpreter when executing a fresh notebook.
+  Cartopy and its Natural Earth 1:110-million coastlines are available locally.
+- Preserve the unrelated local edit in
+  `notebooks/codex_heff_distribution_noaa.ipynb`: `OVERVIEW_SELECTION="relaxed"`
+  and its cleared execution count. The last verified remote worktree also had
+  unrelated edits in `notebooks/Compare_heff.ipynb` and
+  `notebooks/Wheeler-Kiladis_Spectra.ipynb`; inspect before future pulls and do
+  not reset, overwrite or commit these incidentally.
+- If further scientific interpretation is requested, the specific unresolved
+  issues are filter/domain sensitivity of the equatorial ER maxima and the
+  domain-edge HadGEM EIG maximum. These are follow-up questions, not missing
+  steps in the completed notebook; no sensitivity runs have been submitted.
 
 
 ## Historical CNRM--HadGEM depth and WK comparison — 2026-11-06
