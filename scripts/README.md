@@ -1,5 +1,9 @@
 # Scripts
 
+The three-dataset OLR variance and regression workflow is documented in
+[`codex_olr_regression/README.md`](codex_olr_regression/README.md). It selects
+separate maximum-variance reference points for every wave and dataset.
+
 Routine catalog exploration needs no batch runner. The earlier one-off
 audit runner is preserved in `archived/catalog-audit-2026-10-27/`.
 See [the workflow guide](../docs/catalog_workflow.md).
