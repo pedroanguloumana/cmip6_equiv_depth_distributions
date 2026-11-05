@@ -60,7 +60,8 @@ with source metadata, code hashes, source size/mtime and product SHA256.
 Raw filtered latitude fields are not saved. Copy these compact files to the
 local `data/` tree to run `notebooks/codex_cnrm_hadgem_noaa_olr_regression.ipynb`.
 The notebook embeds its figures and does not save standalone figure files.
-Plotting needs Matplotlib, pandas and Cartopy with Natural Earth 110-m coastlines.
+Plotting needs Matplotlib, pandas and Cartopy with Natural Earth coastlines
+at a scale of 1:110 million.
 Its product-grid check permits the observed sub-2e-6-degree coordinate roundoff;
 no extra interpolation or regridding is performed. The notebook flags HadGEM's
 EIG maximum at 19.5°N as a domain-edge base point.
