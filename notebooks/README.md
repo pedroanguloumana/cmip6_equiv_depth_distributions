@@ -19,3 +19,10 @@ dispersion curves and an overlap summary. Reproduction instructions are in
 CNRM-CM6-1 and HadGEM3-GC31-LL runs: five-wave 2-sigma depth distributions
 in linear/logarithmic views, plus symmetric/antisymmetric WK spectra on a shared
 scale. Model members, native calendars and the fit selection are explicit.
+
+`codex_cnrm_hadgem_noaa_olr_regression.ipynb` compares NOAA and the two historical
+runs in five-wave geographical panels. It maps filtered OLR variance, marks
+each dataset/wave's independently selected maximum, and shows zero-lag
+regressions of unfiltered OLR onto those local filtered indices. Scales are
+shared across datasets within each wave. Reproduction instructions are in
+[`scripts/codex_olr_regression/README.md`](../scripts/codex_olr_regression/README.md).

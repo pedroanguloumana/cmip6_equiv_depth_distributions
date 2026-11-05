@@ -1,5 +1,65 @@
 # Codex handoff — 2026-11-06
 
+## OLR variance maxima and regression maps — 2026-11-06
+
+The user requested WK-style average OLR structures for historical CNRM-CM6-1,
+HadGEM3-GC31-LL and NOAA. In response to a reference-region question, they
+explicitly chose **each dataset/wave's own maximum filtered-variance grid
+point** and requested variance maps with the base points marked.
+
+`notebooks/codex_cnrm_hadgem_noaa_olr_regression.ipynb` has two five-row by
+three-column figures: filtered variance and zero-lag OLR regressions. Rows are
+Kelvin, n1ERW, MRG, n0EIG, n1WIG; columns are NOAA/CNRM/HadGEM. Scales are
+shared across datasets within each wave. A table records the 15 bases,
+variances, local index sigmas, ratios to the NOAA maximum, and boundary flags.
+Historical members are r1i1p1f2/r1i1p1f3; native standard/360-day calendars
+remain unchanged, with NOAA proleptic Gregorian.
+
+`src/wave_regression.py` contains the reusable calculation;
+`scripts/codex_olr_regression/` contains the archive worker, Slurm launcher
+and detailed README. It uses the current rectangular BOX_PROFILES with symmetry
+projection and no depth cutoff, on the global 1-degree grid over 20 S–20 N.
+Remove three seasonal harmonics and mean/linear trend. Taper only the predictor
+input (Tukey alpha=.1), exclude its full tapered ends from all statistics, then
+choose each interior variance maximum without meridional averaging. Symmetry
+creates paired hemispheric maxima; use the northern tie for a consistent phase.
+The OLR regression target is **unfiltered, untapered, without symmetry
+projection**. Fit an intercept and scale to a **-1 sigma local filtered-OLR
+excursion**, equivalent to +1 sigma convection. All interior days enter;
+this is independent of the catalog's 2-sigma envelope threshold, and does not
+apply the active-variance windows of Wheeler et al. (2000). Both relevant
+papers and these adaptations are documented in the notebook and README.
+
+All three 1990–1992 pilots in Slurm array `28757954` completed (36–39 s,
+exit 0). All full 1990–2010 tasks in array `28757982` completed (3m12–3m35,
+exit 0). Audits passed finite fields, variance/index-sigma closure, all 15
+map maxima, file hashes, units, and native calendar sample counts. Statistics
+use 6,902 days for NOAA/CNRM (1991-01-20 through 2009-12-12) and 6,804 for
+HadGEM (1991-01-19 through 2009-12-12), after excluding 384/378 taper days
+per end. Compact NetCDFs and audit JSONs are present locally and on Levante
+under `data/olr_wave_regression/1990-2010/`; full filtered latitude fields
+were not saved. These products are ignored by Git.
+
+Kelvin maxima are near 0.5 N, 84.5/88.5/86.5 E for NOAA/CNRM/HadGEM.
+MRG maxima are 6.5 N 171.5 E / 4.5 N 172.5 E / 5.5 N 166.5 E.
+All three ER-box maxima are at 0.5 N. **HadGEM EIG maximizes at 19.5 N,
+205.5 E, the northern domain edge**: the notebook flags this as domain-limited,
+not an interior tropical EIG maximum. Broad-band filter labels and imposed
+predictor symmetry do not independently establish wave identity. Daily Nyquist
+ambiguity for the exact 0.5-cpd WIG boundary is also noted.
+
+Two focused synthetic tests verify signed one-sigma regression scaling with an
+intercept and variance-maximum selection while preserving target asymmetry.
+They use standard-library unittest (the Levante environment has no pytest).
+Fresh local kernel execution passed: 14 cells, two figures / 30 panels, no
+errors. Both figures were visually checked; verified rendered outputs are
+retained in the canonical notebook and in the ignored executed artifact under
+`data/olr_wave_regression/`. Grid validation allows only the observed sub-2e-6
+degree latitude roundoff in model coordinates, with no interpolation.
+Existing local NOAA-distribution and remote Compare/WK notebook edits are
+unrelated and must remain untouched.
+
+
 ## Historical CNRM--HadGEM depth and WK comparison — 2026-11-06
 
 The user requested a new notebook comparing only the historical runs named
