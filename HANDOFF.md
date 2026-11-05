@@ -1,4 +1,57 @@
-# Codex handoff — 2026-11-03
+# Codex handoff — 2026-11-06
+
+## Five-wave event histograms in WK coordinates — 2026-11-06
+
+The user requested (k, omega) event histograms in Wheeler--Kiladis coordinates,
+with a panel for each wave family, to compare their locations with WK-style
+spectral enhancements. `notebooks/codex_wave_event_komega.ipynb` is complete:
+six five-wave figures (NOAA, equally weighted Historical and AMIP means for
+all successful fits, then the existing quality subset). Main axes use signed
+global K and positive cycles/day; secondary axes give dimensional k and omega.
+Each source/wave histogram is normalized before averaging models. Colors count
+events once, without amplitude weighting, on one common logarithmic scale.
+
+`scripts/codex_wave_event_komega/extract.py` read all 300 completed 2-sigma
+catalogs and 60 saved 96-day WK spectra; job `28754065` completed in 24 seconds,
+exit 0, on 2026-11-05. No raw OLR filtering, catalog refitting or Gaussian-null
+calculation was repeated. The audit verifies source identities/input provenance,
+674,102 successful fits / 182,484 screened events, dimensional coordinate
+conversions, histogram closure and the 12/25/50 m branch reference curves.
+Source/plotting inputs are under
+`data/event_threshold_comparison/wave_event_komega_sigma2/`:
+`histograms_and_wk.nc`, `catalog_index.csv`, `audit.json`. These were copied
+locally with matching SHA256s. Extraction code was deployed as `23a9751`.
+
+K cells are integer-centered (-15.5..15.5 edges); frequency centers are 0..48/96
+cycles/day, with half-width endpoint cells. Nyquist events remain counted and
+their bin is hatched; WK overlays exclude exact Nyquist. Primary maps include
+every successful finite-coordinate fit, without a valid-depth requirement.
+The second view uses `keep_for_histogram`. Dashed rectangles show carrier-fit
+search bounds; binned cells can straddle those bounds.
+
+Black contours are the saved WK power/background ratios 1.1/1.3/1.5 in each
+family's appropriate symmetry. These use the existing segment analysis's
+15 S--15 N latitude-power mean and ten K/ten frequency 1-2-1 smoothing passes.
+Event detection uses a northern 0--20 latitude mean after symmetry projection
+over 20 S--20 N. The differing reductions and count versus variance weighting
+are explicit caveats. Orange curves are resting-state 12/25/50 m theory.
+
+The descriptive overlap table excludes zero/Nyquist cells and reports both
+event overlap with WK ratio >=1.1 and a geometric area reference, weighted for
+partial cells within the fit-search domain. It is not a statistical null model.
+For NOAA successful fits, event overlaps are Kelvin 98.1%, ER 96.8%, MRG 17.7%,
+EIG 5.2%, WIG 37.8%; corresponding available-area shares are 54.6%, 55.3%,
+9.2%, 14.1%, 41.6%. These shared-input comparisons do not validate physical
+wave identity or depth accuracy by themselves.
+
+The notebook ran from a fresh local kernel: 11 cells, six multi-panel figures,
+zero errors; all six were visually inspected. Its executed artifact is also
+preserved locally as `codex_wave_event_komega.reviewed.executed.ipynb` under
+the output directory. Helper: `/private/tmp/render_wave_event_komega.py`.
+
+Preserve existing user edits: local `codex_heff_distribution_noaa.ipynb` has its
+overview selection changed to relaxed; Levante has edits in `Compare_heff.ipynb`
+and `Wheeler-Kiladis_Spectra.ipynb`. None belongs in this task's commit.
 
 ## Remake the older distribution notebooks with 2-sigma events — 2026-11-03
 

@@ -42,3 +42,14 @@ dimensional k and omega. Dashed rectangles identify each family's fit-search
 domain. Contours show the saved WK power/background ratio, and colored line
 styles identify 12/25/50 m reference curves. Fitted coordinates are continuous;
 the histogram binning does not imply integer-only fits or 96-day event durations.
+
+The notebook also compares the resolved-event fraction in WK ratio >=1.1 cells
+with the geometric fraction of the fit-search area above that ratio. Partial
+edge cells are weighted by their intersection with the search rectangle. This
+is a descriptive area reference rather than a noise model or significance test.
+
+Extraction job `28754065` completed in 24 seconds (exit 0), checking all 300
+catalogs and 60 matching spectra. The notebook executed from a fresh local
+kernel with 11 cells and six five-wave figures, no errors; all six figures were
+visually checked. The canonical notebook retains those outputs. Compact data
+and their audit are available locally and on Levante with matching SHA256s.
