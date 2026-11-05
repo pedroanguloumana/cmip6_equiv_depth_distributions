@@ -14,3 +14,8 @@ WK-style spectral contours, in five-wave panels for NOAA and Historical/AMIP
 model means. It includes both fit selections, dimensional k/omega axes,
 dispersion curves and an overlap summary. Reproduction instructions are in
 [`scripts/codex_wave_event_komega/README.md`](../scripts/codex_wave_event_komega/README.md).
+
+`codex_cnrm_hadgem_historical_heff_wk.ipynb` compares just the historical
+CNRM-CM6-1 and HadGEM3-GC31-LL runs: five-wave 2-sigma depth distributions
+in linear/logarithmic views, plus symmetric/antisymmetric WK spectra on a shared
+scale. Model members, native calendars and the fit selection are explicit.

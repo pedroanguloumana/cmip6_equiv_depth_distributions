@@ -1,5 +1,40 @@
 # Codex handoff — 2026-11-06
 
+## Historical CNRM--HadGEM depth and WK comparison — 2026-11-06
+
+The user requested a new notebook comparing only the historical runs named
+"CNRM-CM1" and "HadGEM3-GC1-LL", with one depth-distribution panel per wave
+family and WK spectra. These were explicitly interpreted as the available
+CMIP6 IDs CNRM-CM6-1 (`r1i1p1f2`, standard calendar, 7,670 days) and
+HadGEM3-GC31-LL (`r1i1p1f3`, 360-day calendar, 7,560 days).
+
+`notebooks/codex_cnrm_hadgem_historical_heff_wk.ipynb` is complete. It uses the
+existing audited 2-sigma count tables and the matched saved WK cache, selecting
+exact model/experiment/member identities. No new archive processing or fitting
+was needed. `DEPTH_SELECTION="relaxed"` is the visible default (all successful,
+positive, dispersion-valid depth fits); it can be changed to `"screened"`.
+The 1--100 m / 1 m-bin figure and 0.5--10,000 m logarithmic figure each have
+one panel for each of five waves, with just two source curves. All selected
+events remain in the denominator; a table shows counts, medians, p10/p90 and
+display coverage. Native calendars and members are retained explicitly.
+
+A 2x2 WK figure shows models by row and symmetry by column. Colors use a shared
+observed-power / own smoothed-background scale (below 1.1 white, above 2.5
+saturated), and red curves show resting-state 12/25/50 m for the five analyzed
+families. Spectra use the saved exact 96-day / 60-day-overlap latitude-power
+analysis over 15 S--15 N and are independent of event threshold. The differing
+event/WK latitude reductions and count/power normalizations are documented.
+
+Fresh local kernel execution passed: 12 cells, three composite figures, no
+errors. All three were visually checked. The canonical notebook retains the
+verified outputs; its executed artifact is also local under
+`data/event_threshold_comparison/pair_comparisons/`. Helper:
+`/private/tmp/render_cnrm_hadgem_notebook.py`. For the default selection,
+Kelvin median depths are 9.36 / 12.56 m (CNRM / HadGEM), ER 17.44 / 17.58 m,
+EIG/WIG about 6.7 m in both, and MRG 30.35 / 35.58 m with broad tails.
+These are descriptive single-member comparisons under the resting-wave inversion.
+Existing local NOAA and remote Compare/WK notebook edits remain unrelated.
+
 ## Five-wave event histograms in WK coordinates — 2026-11-06
 
 The user requested (k, omega) event histograms in Wheeler--Kiladis coordinates,
